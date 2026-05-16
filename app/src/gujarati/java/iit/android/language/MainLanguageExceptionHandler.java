@@ -183,6 +183,31 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         }
     }
 
+
+    private void handleRafar(HashMap<Integer, KeyAttr> sKeys) {
+        for (KeyAttr key : keyArray) {
+            String newLabel = RA + HALANT + mKeys.get(key.code).label;
+            key.label = newLabel;
+            key.showChakra = true;
+            sKeys.put(key.code, key);
+        }
+    }
+
+    private void handleTrakar(HashMap<Integer, KeyAttr> sKeys) {
+        for (KeyAttr key : keyArray) {
+            String newLabel = mKeys.get(key.code).label + HALANT + RA;
+            key.label = newLabel;
+            key.showChakra = true;
+            sKeys.put(key.code, key);
+        }
+    }
+
+    private void commitText(String text) {
+        mInputConnection.setComposingText(text, 1);
+        mInputConnection.finishComposingText();
+        updateExtractedText();
+    }
+
     private void updateExtractedText() {
         try {
             ExtractedText edt = mInputConnection.getExtractedText(new ExtractedTextRequest(), 0);
