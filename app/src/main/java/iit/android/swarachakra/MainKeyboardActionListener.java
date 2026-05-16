@@ -464,7 +464,7 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 		if(before!=null) {
 		String test = before.toString();
 		int i = test.length() - 1;
-		if(i>0 && mExceptionLangHandler != null && mExceptionLangHandler.languageConsonants != null && !mExceptionLangHandler.languageConsonants.contains(test.charAt(i))){
+		if(i>0 && mExceptionLangHandler != null && mExceptionLangHandler.languageConsonants != null && mExceptionLangHandler.chakraVowelModifiers != null && !mExceptionLangHandler.languageConsonants.contains(test.charAt(i))){
 			if((i)>0 && mExceptionLangHandler.chakraVowelModifiers.contains(test.charAt(i)) ){
 				if (String.valueOf(test.charAt(i)).equals("्")) {
 					//Character c = test.charAt(i-1);
