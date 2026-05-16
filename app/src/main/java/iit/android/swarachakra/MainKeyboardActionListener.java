@@ -307,7 +307,9 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 
 		if (isChakraVisible) {
 			String text = mSwaraChakra.getText();
-			if(!preText.equals("") && ( mExceptionLangHandler.chakraWholeVowels.contains(text.charAt(0))
+			if(!preText.equals("") && mExceptionLangHandler != null
+					&& mExceptionLangHandler.chakraWholeVowels != null
+					&& ( mExceptionLangHandler.chakraWholeVowels.contains(text.charAt(0))
 					|| mExceptionLangHandler.specialCases.contains(text.charAt(0)) || mExceptionLangHandler.chakraVowelModifiers.contains(text.charAt(0)))){
 				text = preText+text;
 			}
@@ -422,7 +424,7 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 				}
 			}else {
 				//mExceptionLangHandler.setInputConnection(mInputConnection);
-				mExceptionLangHandler.handleBackSpaceDeleteChar(mInputConnection);
+				if (mExceptionLangHandler != null) mExceptionLangHandler.handleBackSpaceDeleteChar(mInputConnection);
 			}
 
 		}
@@ -462,7 +464,7 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 		if(before!=null) {
 		String test = before.toString();
 		int i = test.length() - 1;
-		if(i>0 && !mExceptionLangHandler.languageConsonants.contains(test.charAt(i))){
+		if(i>0 && mExceptionLangHandler != null && mExceptionLangHandler.languageConsonants != null && !mExceptionLangHandler.languageConsonants.contains(test.charAt(i))){
 			if((i)>0 && mExceptionLangHandler.chakraVowelModifiers.contains(test.charAt(i)) ){
 				if (String.valueOf(test.charAt(i)).equals("्")) {
 					//Character c = test.charAt(i-1);
@@ -658,7 +660,9 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 			if (isChakraVisible) {
 					mSwaraChakra.setArc(arc);
 					String text = mSwaraChakra.getText();
-				if(!preText.equals("") && (mExceptionLangHandler.chakraWholeVowels.contains(text.charAt(0))
+				if(!preText.equals("") && mExceptionLangHandler != null
+						&& mExceptionLangHandler.chakraWholeVowels != null
+						&& (mExceptionLangHandler.chakraWholeVowels.contains(text.charAt(0))
 						|| mExceptionLangHandler.specialCases.contains(text.charAt(0)) || mExceptionLangHandler.chakraVowelModifiers.contains(text.charAt(0)) )){
 					text = preText+text;
 				}
@@ -668,7 +672,9 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 			if (isChakraVisible) {
 					mSwaraChakra.desetArc();
 					String text = mSwaraChakra.getText();
-				if(!preText.equals("") && (mExceptionLangHandler.chakraWholeVowels.contains(text.charAt(0))
+				if(!preText.equals("") && mExceptionLangHandler != null
+						&& mExceptionLangHandler.chakraWholeVowels != null
+						&& (mExceptionLangHandler.chakraWholeVowels.contains(text.charAt(0))
 						|| mExceptionLangHandler.specialCases.contains(text.charAt(0)) || mExceptionLangHandler.chakraVowelModifiers.contains(text.charAt(0)) )){
 					text = preText+text;
 				}
