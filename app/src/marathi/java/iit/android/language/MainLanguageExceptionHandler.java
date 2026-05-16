@@ -15,7 +15,7 @@ import java.util.Map;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v4.util.SimpleArrayMap;
+import androidx.collection.SimpleArrayMap;
 import android.util.Log;
 import android.view.inputmethod.ExtractedText;
 import android.view.inputmethod.ExtractedTextRequest;
