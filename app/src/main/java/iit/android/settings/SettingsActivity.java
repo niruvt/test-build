@@ -147,7 +147,7 @@ public class SettingsActivity extends AppCompatActivity {
         radioGroup = (RadioGroup) layout.findViewById(R.id.layoutRadioGroup);
         rateus = (Button) layout.findViewById(R.id.rateus);
         doYouLikeTextView = (TextView) layout.findViewById(R.id.likeus);
-        tapaatap_btn = (Button) layout.findViewById(R.id.tapaatap_button);
+        tapaatap_btn = (Button) layout.findViewById(R.id.tapaatap_button); // marathi-only
         fblikeus = (Button) layout.findViewById(R.id.fb_likeus);
         trykeyboard = (Button) layout.findViewById(R.id.tryit);
         showKBSize = (TextView) layout.findViewById(R.id.showKBSize);
@@ -158,18 +158,18 @@ public class SettingsActivity extends AppCompatActivity {
         RadioButton smallRadio = (RadioButton) layout.findViewById(R.id.smallRadioButton);
         RadioButton bigRadio = (RadioButton) layout.findViewById(R.id.bigRadioButton);
         RadioButton hexRadio = (RadioButton) layout.findViewById(R.id.hexRadioButton);
-        layoutradioGroup = (RadioGroup) layout.findViewById(R.id.layoutSizeRadioGroup);
+        layoutradioGroup = (RadioGroup) layout.findViewById(R.id.layoutSizeRadioGroup); // marathi-only
 
         String smallRadioText = getStringResourceByName("settings_layout_small");
         String bigRadioText = getStringResourceByName("settings_layout_big");
         String hexRadioText = getStringResourceByName("settings_layout_hex");
         fblike = (Button) layout.findViewById(R.id.fb_likeus_tv2);
 
-        FloatingActionButton langButton = (FloatingActionButton) layout.findViewById(R.id.toggleLanguage_settings);
+        FloatingActionButton langButton = layout.findViewById(R.id.toggleLanguage_settings); // marathi-only
         if (inEnglish) {
-            langButton.setImageResource(R.drawable.language_toggle);
+            if (langButton != null) langButton.setImageResource(R.drawable.language_toggle);
         } else {
-            langButton.setImageResource(R.drawable.english_toggle);
+            if (langButton != null) langButton.setImageResource(R.drawable.english_toggle);
         }
 
         String fb_label = getStringResourceByName("fb_likeus");
@@ -187,9 +187,9 @@ public class SettingsActivity extends AppCompatActivity {
         String tapaatap_download = getStringResourceByName("tapaatap_download");
         doYouLikeTextView.setText(doyoulikeustext);
         rateus.setText(rateustext);
-        tapaatap_btn.setText(tapaatap_download);
+        if (tapaatap_btn != null) tapaatap_btn.setText(tapaatap_download);
 
-        layoutradioGroup.setVisibility(View.VISIBLE);
+        if (layoutradioGroup != null) layoutradioGroup.setVisibility(View.VISIBLE);
         setContentView(layout);
         checkKeyboardStatus();
 
@@ -216,8 +216,8 @@ public class SettingsActivity extends AppCompatActivity {
                 smallRadio.setChecked(false);
                 bigRadio.setChecked(false);
                 hexRadio.setChecked(true);
-                layoutradioGroup.setVisibility(View.VISIBLE);
-                ((RadioButton) layoutradioGroup.getChildAt(kbHeightSetting)).setChecked(true);
+                if (layoutradioGroup != null) layoutradioGroup.setVisibility(View.VISIBLE);
+                if (layoutradioGroup != null) ((RadioButton) layoutradioGroup.getChildAt(kbHeightSetting)).setChecked(true);
 
                 DisplayMetrics metrics = getResources().getDisplayMetrics();
                 int iconWidth, iconHeight;
@@ -226,30 +226,30 @@ public class SettingsActivity extends AppCompatActivity {
                     case ORIENTATION_PORTRAIT:
                         iconWidth = (int) Math.round((metrics.widthPixels * 0.9) / 5);
                         iconHeight = (int) ((iconWidth / PORTRAIT_WIDTH) * PORTRAIT_HEIGHT);
-                        layoutradioGroup.getChildAt(0).setBackgroundResource(R.drawable.radio_size1);
-                        layoutradioGroup.getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                        layoutradioGroup.getChildAt(1).setBackgroundResource(R.drawable.radio_size2);
-                        layoutradioGroup.getChildAt(1).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                        layoutradioGroup.getChildAt(2).setBackgroundResource(R.drawable.radio_size3);
-                        layoutradioGroup.getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                        layoutradioGroup.getChildAt(3).setBackgroundResource(R.drawable.radio_size4);
-                        layoutradioGroup.getChildAt(3).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                        layoutradioGroup.getChildAt(4).setBackgroundResource(R.drawable.radio_size5);
-                        layoutradioGroup.getChildAt(4).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(0).setBackgroundResource(R.drawable.radio_size1);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(1).setBackgroundResource(R.drawable.radio_size2);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(1).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(2).setBackgroundResource(R.drawable.radio_size3);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(3).setBackgroundResource(R.drawable.radio_size4);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(3).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(4).setBackgroundResource(R.drawable.radio_size5);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(4).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
                         break;
                     case ORIENTATION_LANDSCAPE:
                         iconWidth = (int) Math.round((metrics.widthPixels * 0.9) / 5);
                         iconHeight = (int) ((iconWidth / PORTRAIT_HEIGHT) * PORTRAIT_WIDTH);
-                        layoutradioGroup.getChildAt(0).setBackgroundResource(R.drawable.radio_size1_landscape);
-                        layoutradioGroup.getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                        layoutradioGroup.getChildAt(1).setBackgroundResource(R.drawable.radio_size2_landscape);
-                        layoutradioGroup.getChildAt(1).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                        layoutradioGroup.getChildAt(2).setBackgroundResource(R.drawable.radio_size3_landscape);
-                        layoutradioGroup.getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                        layoutradioGroup.getChildAt(3).setBackgroundResource(R.drawable.radio_size4_landscape);
-                        layoutradioGroup.getChildAt(3).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                        layoutradioGroup.getChildAt(4).setBackgroundResource(R.drawable.radio_size5_landscape);
-                        layoutradioGroup.getChildAt(4).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(0).setBackgroundResource(R.drawable.radio_size1_landscape);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(1).setBackgroundResource(R.drawable.radio_size2_landscape);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(1).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(2).setBackgroundResource(R.drawable.radio_size3_landscape);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(3).setBackgroundResource(R.drawable.radio_size4_landscape);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(3).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(4).setBackgroundResource(R.drawable.radio_size5_landscape);
+                        if (layoutradioGroup != null) layoutradioGroup.getChildAt(4).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
                         break;
                 }
                 break;
@@ -258,14 +258,14 @@ public class SettingsActivity extends AppCompatActivity {
             default:
                 switch (size) {
                     case SettingsActivity.SCREENSIZE_ATLEAST_LARGE:
-                        layoutradioGroup.setVisibility(View.GONE);
+                        if (layoutradioGroup != null) layoutradioGroup.setVisibility(View.GONE);
                         smallRadio.setChecked(false);
                         bigRadio.setChecked(true);
                         hexRadio.setChecked(false);
                         break;
                     case SettingsActivity.SCREENSIZE_SMALL_NORMAL:
                     default:
-                        layoutradioGroup.setVisibility(View.GONE);
+                        if (layoutradioGroup != null) layoutradioGroup.setVisibility(View.GONE);
                         smallRadio.setChecked(true);
                         bigRadio.setChecked(false);
                         hexRadio.setChecked(false);
@@ -283,7 +283,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        tapaatap_btn.setOnClickListener(new OnClickListener() {
+        if (tapaatap_btn != null) tapaatap_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent rate = new Intent(Intent.ACTION_VIEW);
@@ -348,18 +348,18 @@ public class SettingsActivity extends AppCompatActivity {
                     editor.putInt(layoutKey, SettingsActivity.LAYOUT_DEFAULT);
                     editor.putInt(screensizeKey, SettingsActivity.SCREENSIZE_ATLEAST_LARGE);
                     editor.commit();
-                    layoutradioGroup.setVisibility(View.GONE);
+                    if (layoutradioGroup != null) layoutradioGroup.setVisibility(View.GONE);
                 } else if (checkedId == R.id.smallRadioButton) {
                     editor.putInt(layoutKey, SettingsActivity.LAYOUT_DEFAULT);
                     editor.putInt(screensizeKey, SettingsActivity.SCREENSIZE_SMALL_NORMAL);
                     editor.commit();
-                    layoutradioGroup.setVisibility(View.GONE);
+                    if (layoutradioGroup != null) layoutradioGroup.setVisibility(View.GONE);
                 } else {
                     editor.putInt(layoutKey, SettingsActivity.LAYOUT_HIVE);
                     editor.putInt(screensizeKey, SettingsActivity.SCREENSIZE_ATLEAST_LARGE);
                     editor.commit();
-                    layoutradioGroup.setVisibility(View.VISIBLE);
-                    ((RadioButton) layoutradioGroup.getChildAt(kbHeightSetting)).setChecked(true);
+                    if (layoutradioGroup != null) layoutradioGroup.setVisibility(View.VISIBLE);
+                    if (layoutradioGroup != null) ((RadioButton) layoutradioGroup.getChildAt(kbHeightSetting)).setChecked(true);
                     Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
                     startActivity(intent);
                 }
@@ -383,8 +383,8 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         };
-        layoutradioGroup.setOnCheckedChangeListener(layoutSizeChangedListener);
-        langButton.setOnClickListener(changeLanguage);
+        if (layoutradioGroup != null) layoutradioGroup.setOnCheckedChangeListener(layoutSizeChangedListener);
+        if (langButton != null) langButton.setOnClickListener(changeLanguage);
 
         if (isDefault && isEnabled) {
             isTablet = readPhoneSize(this);
@@ -409,30 +409,30 @@ public class SettingsActivity extends AppCompatActivity {
             case ORIENTATION_PORTRAIT:
                 iconWidth = (int) Math.round((metrics.widthPixels * 0.9) / 5);
                 iconHeight = (int) ((iconWidth / PORTRAIT_WIDTH) * PORTRAIT_HEIGHT);
-                layoutradioGroup.getChildAt(0).setBackgroundResource(R.drawable.radio_size1);
-                layoutradioGroup.getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                layoutradioGroup.getChildAt(1).setBackgroundResource(R.drawable.radio_size2);
-                layoutradioGroup.getChildAt(1).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                layoutradioGroup.getChildAt(2).setBackgroundResource(R.drawable.radio_size3);
-                layoutradioGroup.getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                layoutradioGroup.getChildAt(3).setBackgroundResource(R.drawable.radio_size4);
-                layoutradioGroup.getChildAt(3).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                layoutradioGroup.getChildAt(4).setBackgroundResource(R.drawable.radio_size5);
-                layoutradioGroup.getChildAt(4).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(0).setBackgroundResource(R.drawable.radio_size1);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(1).setBackgroundResource(R.drawable.radio_size2);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(1).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(2).setBackgroundResource(R.drawable.radio_size3);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(3).setBackgroundResource(R.drawable.radio_size4);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(3).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(4).setBackgroundResource(R.drawable.radio_size5);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(4).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
                 break;
             case ORIENTATION_LANDSCAPE:
                 iconWidth = (int) Math.round((metrics.widthPixels * 0.9) / 5);
                 iconHeight = (int) ((iconWidth / PORTRAIT_HEIGHT) * PORTRAIT_WIDTH);
-                layoutradioGroup.getChildAt(0).setBackgroundResource(R.drawable.radio_size1_landscape);
-                layoutradioGroup.getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                layoutradioGroup.getChildAt(1).setBackgroundResource(R.drawable.radio_size2_landscape);
-                layoutradioGroup.getChildAt(1).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                layoutradioGroup.getChildAt(2).setBackgroundResource(R.drawable.radio_size3_landscape);
-                layoutradioGroup.getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                layoutradioGroup.getChildAt(3).setBackgroundResource(R.drawable.radio_size4_landscape);
-                layoutradioGroup.getChildAt(3).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
-                layoutradioGroup.getChildAt(4).setBackgroundResource(R.drawable.radio_size5_landscape);
-                layoutradioGroup.getChildAt(4).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(0).setBackgroundResource(R.drawable.radio_size1_landscape);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(0).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(1).setBackgroundResource(R.drawable.radio_size2_landscape);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(1).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(2).setBackgroundResource(R.drawable.radio_size3_landscape);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(2).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(3).setBackgroundResource(R.drawable.radio_size4_landscape);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(3).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(4).setBackgroundResource(R.drawable.radio_size5_landscape);
+                if (layoutradioGroup != null) layoutradioGroup.getChildAt(4).setLayoutParams(new LinearLayout.LayoutParams(iconWidth, iconHeight));
                 break;
         }
     }
@@ -550,7 +550,7 @@ public class SettingsActivity extends AppCompatActivity {
         RadioButton smallRadio = (RadioButton) layout.findViewById(R.id.smallRadioButton);
         RadioButton bigRadio = (RadioButton) layout.findViewById(R.id.bigRadioButton);
         RadioButton hexradio = (RadioButton) layout.findViewById(R.id.hexRadioButton);
-        FloatingActionButton langButton = (FloatingActionButton) layout.findViewById(R.id.toggleLanguage_settings);
+        FloatingActionButton langButton = layout.findViewById(R.id.toggleLanguage_settings); // marathi-only
         Button tryit = (Button) layout.findViewById(R.id.tryit);
         Button fbLikeUs = (Button) layout.findViewById(R.id.fb_likeus_tv2);
 
@@ -560,12 +560,12 @@ public class SettingsActivity extends AppCompatActivity {
         instructionTextView.setText(getStringResourceByName("settings_instruction"));
         doYouLikeTextView.setText(getStringResourceByName("do_you_like"));
         rateus.setText(getStringResourceByName("rate_us"));
-        tapaatap_btn.setText(getStringResourceByName("tapaatap_download"));
+        if (tapaatap_btn != null) tapaatap_btn.setText(getStringResourceByName("tapaatap_download"));
 
         if (inEnglish) {
-            langButton.setImageResource(R.drawable.language_toggle);
+            if (langButton != null) langButton.setImageResource(R.drawable.language_toggle);
         } else {
-            langButton.setImageResource(R.drawable.english_toggle);
+            if (langButton != null) langButton.setImageResource(R.drawable.english_toggle);
         }
         tryit.setText(getStringResourceByName("tryit"));
         fbLikeUs.setText(getStringResourceByName("fb_likeus"));
