@@ -53,7 +53,6 @@ public class SoftKeyboard extends InputMethodService {
         super.onCreate();
         //Log.d("settings","onCreate Called");
         appContext = getApplicationContext();
-        Installation.id(getApplicationContext());
     }
 
     @Override
