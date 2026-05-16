@@ -23,7 +23,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 
     private static final int RAFARCODE = 53;
     private static final int TRAKARCODE = 52;
-    private static final int EYELASHRACODE = 51;
 
     public MainLanguageExceptionHandler(Language lang, Context context, InputConnection ic){
         main = lang;
@@ -34,9 +33,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
     public HashMap<Integer, KeyAttr> handleException(int keyCode){
         HashMap<Integer, KeyAttr> sKeys = new HashMap<Integer, KeyAttr>();
         switch(keyCode){
-            case EYELASHRACODE:
-                handleEyelashRa(sKeys);
-                break;
             case TRAKARCODE:
                 handleTrakar(sKeys);
                 break;
@@ -76,14 +72,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
             sKeys.put(key.code, key);
         }
     }
-
-    private void handleEyelashRa(HashMap<Integer, KeyAttr> sKeys) {
-        for(KeyAttr key : keyArray){
-            String newLabel = EYELASHRA + HALANT + mKeys.get(key.code).label;
-            key.label = newLabel;
-            key.showChakra = true;
-            sKeys.put(key.code, key);
-        }
     }
 
 }
