@@ -11,13 +11,13 @@
             backward-compatibility can go here.
         -->
     </style>
-    <style name="Theme.AppCompat.NoActionBar" parent="Theme.AppCompat.Light">
+    <style name="Theme.AppCompat.NoActionBar" parent="Theme.MaterialComponents.Light.DayNight.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
     </style>
 
     <!-- Application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light">
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DayNight.NoActionBar">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
 
     </style>
