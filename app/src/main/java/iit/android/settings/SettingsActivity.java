@@ -167,9 +167,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         FloatingActionButton langButton = (FloatingActionButton) layout.findViewById(R.id.toggleLanguage_settings);
         if (inEnglish) {
-            langButton.setImageResource(R.drawable.marathi);
+            langButton.setImageResource(R.drawable.language_toggle);
         } else {
-            langButton.setImageResource(R.drawable.english);
+            langButton.setImageResource(R.drawable.english_toggle);
         }
 
         String fb_label = getStringResourceByName("fb_likeus");
@@ -563,9 +563,9 @@ public class SettingsActivity extends AppCompatActivity {
         tapaatap_btn.setText(getStringResourceByName("tapaatap_download"));
 
         if (inEnglish) {
-            langButton.setImageResource(R.drawable.marathi);
+            langButton.setImageResource(R.drawable.language_toggle);
         } else {
-            langButton.setImageResource(R.drawable.english);
+            langButton.setImageResource(R.drawable.english_toggle);
         }
         tryit.setText(getStringResourceByName("tryit"));
         fbLikeUs.setText(getStringResourceByName("fb_likeus"));
