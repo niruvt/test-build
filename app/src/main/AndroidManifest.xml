@@ -53,7 +53,7 @@
         <activity
             android:name="iit.android.settings.PreviewActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.MaterialComponents.Light.DayNight.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         </activity>
     </application>
 
