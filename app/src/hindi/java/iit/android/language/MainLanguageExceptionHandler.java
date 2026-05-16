@@ -97,13 +97,11 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
             if(nuktaKeyValues.containsKey(key.code)){
                 //String newLabel = mKeys.get(key.code).label + NUKTA;
                 String newLabel = nuktaKeyValues.get(key.code);
-                //Log.d("debug","Keep this one button "+key.code);
 
                 key.label = newLabel;
                 key.showChakra = true;
             }else
             {
-                //Log.d("debug","Hide this button "+key.code);
                 //key.showChakra = false;
                 //key.label = "";
                 //key.code = 0;

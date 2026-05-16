@@ -51,7 +51,6 @@ public class SoftKeyboard extends InputMethodService {
     @Override
     public void onCreate() {
         super.onCreate();
-        //Log.d("settings","onCreate Called");
         appContext = getApplicationContext();
     }
 
@@ -75,10 +74,8 @@ public class SoftKeyboard extends InputMethodService {
     @Override
     public View onCreateInputView() {
 
-        //mLog.d("dbgm", "onCreateInputView()");
 
-         /*  Log.d("dbgm", "Width:" +  mKeyboardView.getWidth());
-        Log.d("dbgm", "Height:" + mKeyboardView.getHeight());*/
+         /*        Log.d("dbgm", "Height:" + mKeyboardView.getHeight());*/
 
         mContext = this;
         layoutName = "";
@@ -118,7 +115,6 @@ public class SoftKeyboard extends InputMethodService {
             mKeyboardView.invalidateAllKeys();
 
         } catch (Exception ex) {
-            Log.d("dbgm", ex.getMessage().toString());
             //return;
             //final RelativeLayout layout = null;
         }
@@ -131,7 +127,6 @@ public class SoftKeyboard extends InputMethodService {
         super.onFinishInputView(finishingInput);
 
 
-        //mLog.d("flag", "write now");
     }
 
     public static Context appContext() {
@@ -161,14 +156,11 @@ public class SoftKeyboard extends InputMethodService {
         //layout_orient_screensize_lang_layer_theme.xml
         if (languageName == "english") {
             file = "kview_" + displayMode + languageName;
-            //mLog.d("dbgm", file);
         } else {
             file = "kview_" + displayMode + sizeName + "_" + languageName + "_" + layoutName;
-            //mLog.d("dbgm", file);
         }
 
         //String file = "kview_" + displayMode + languageName;
-        //mLog.d("dbgm", "filename = " + file);
         int output = getResources().getIdentifier(file, "layout",
                 getPackageName());
 
@@ -178,12 +170,10 @@ public class SoftKeyboard extends InputMethodService {
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
 
-        //mLog.d("dbgm", "onStartInputView()");
 
         mInputConnection = getCurrentInputConnection();
 
         if (mInputConnection == null)
-            Log.d("dbgm", "mInputConnection is null");
 
         mKeyboardView.resetInputConnection(mInputConnection);
         mKeyboardView.setAlpha(1);
@@ -191,28 +181,21 @@ public class SoftKeyboard extends InputMethodService {
 
         String prevDisplayMode = displayMode;
         detectDisplayMode();
-        //mLog.d("track", "" + displayMode);
 
         if (displayMode != prevDisplayMode) {
-            //mLog.d("dbgm", "Display mode is not the same");
 
             setInputView(onCreateInputView());
         } else {
-            //mLog.d("dbgm", "Display mode is the same");
         }
 
         mKeyboardView.keys = mKeyboardView.getKeyboard().getKeys();
         //setInputView(onCreateInputView());
 
-        //mLog.d("dbgm", "onStartInputView()");
         //Display dm = mKeyboardView.getDisplay();
 
 
-        /*Log.d("dbgm", "Width:" + mKeyboardView.getWidth());
-        Log.d("dbgm", "Height:" + mKeyboardView.getHeight());*/
+        /*        Log.d("dbgm", "Height:" + mKeyboardView.getHeight());*/
 
-        //mLog.d("dbgm", "Width:" + mKeyboardView.getMeasuredWidth());
-        //mLog.d("dbgm", "Height:" + mKeyboardView.getMeasuredHeight());
 
     }
 
@@ -227,12 +210,9 @@ public class SoftKeyboard extends InputMethodService {
     private void setKeys() {
         List<Key> keys = mKeyboard.getKeys();
         for (Key key : keys) {
-            //Log.d("track","hereout");
             if (mKeys.containsKey(key.codes[0])) {
-                //Log.d("track","hereout2:"+key.codes[0]);
 
                 if (key.codes[0] == 400) {
-                    //Log.d("track","here1");
                     //key.gap = 500;
                 }
 
@@ -244,7 +224,6 @@ public class SoftKeyboard extends InputMethodService {
                     if (id != 0) {
                         key.icon = ContextCompat.getDrawable(this, id);
                         key.label = null;
-                        //Log.d("Location", "set icon " + key.icon);
                     }
                 }
             }
@@ -262,26 +241,20 @@ public class SoftKeyboard extends InputMethodService {
         String prevDisplayMode = displayMode;
         detectDisplayMode();
 
-        //Log.d("dbgm", "**display modes: " + prevDisplayMode + "," + displayMode);
-        //Log.d("dbgm", "**layout : " + layoutName + "," + layoutFile);
 
         if (prevDisplayMode != displayMode) {
 
-            //Log.d("dbgm", "change keyboard ");
             setInputView(onCreateInputView());
 
         } else {
 
             /*//mif (layoutName.equals(layoutFile))
-                Log.d("dbgm", "Dont change keyboard ");
             else {
-                Log.d("dbgm", "Layout changed:change keyboard ");
                 //setInputView(onCreateInputView());
             }*/
 
             /*if(reLoadLayout){
                 reLoadLayout = false;
-                Log.d("dbgm","Reload flag reset:change keyboard ");
                 //setInputView(onCreateInputView());
             }else
                 Log.d("dbgm", "Dont change keyboard ");*/
@@ -299,7 +272,6 @@ public class SoftKeyboard extends InputMethodService {
                 mKeyboardView.setBackgroundResource(getResourceBackgroundID(layoutFile));
 
         } else {
-            //Log.d("layout", "you ");
         }
 
         layoutName = layoutFile;
@@ -375,7 +347,6 @@ public class SoftKeyboard extends InputMethodService {
 	            & Configuration.SCREENLAYOUT_SIZE_MASK)
 				>= Configuration.SCREENLAYOUT_SIZE_LARGE;*/
 
-        //Log.d("track", "istablet()");
 
         if ((context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE) {
             return SettingsActivity.SCREENSIZE_ATLEAST_LARGE;
@@ -410,7 +381,6 @@ public class SoftKeyboard extends InputMethodService {
      */
     public int getResourceId(String layoutFile) {
 
-        //mLog.d("dbgm", "Get resource id for:"+layoutFile);
 
         int resourceId = 0;
         //hex
@@ -436,10 +406,8 @@ public class SoftKeyboard extends InputMethodService {
         String themeName = SettingsActivity.getThemeName(prefs.getInt(theme, SettingsActivity.THEME1));
         String kbHeightSetting = SettingsActivity.getLayoutHeightName(prefs.getInt(layout, SettingsActivity.LAYOUT_HIVE), prefs.getInt(kbHeight, 1));
 
-        //Log.d("dbgm","kbheightsetting:"+kbHeightSetting);
         //layout_orient_screensize_lang_layer_theme.xml
         String name = "";
-        //Log.d("dbgm","language:"+languageName);
 
         if (languageName == "english") {
 
@@ -448,7 +416,6 @@ public class SoftKeyboard extends InputMethodService {
             name = layoutName + displayMode + sizeName + "_" + languageName + "_" + layoutFile + "_" + themeName + kbHeightSetting;
         }
         //String name = layoutName+displayMode+languageName+"_"+layoutFile+"_"+themeName;
-        //mLog.d("dbgm", name);
 
         resourceId = getResources().getIdentifier(name, "layout", getPackageName());
 
@@ -456,7 +423,6 @@ public class SoftKeyboard extends InputMethodService {
     }
 
     public int getResourceBackgroundID(String layoutFile) {
-        //Log.d("track","bkg image:"+layoutFile);
 
         int resourceId = 0;
         //hex
@@ -485,7 +451,6 @@ public class SoftKeyboard extends InputMethodService {
             name = layoutName + displayMode + sizeName + "_" + languageName + "_" + layoutFile + "_" + themeName;
         }
         //String name = layoutName+displayMode+languageName+"_"+layoutFile+"_"+themeName;
-        //mLog.d("track", "bkg image:" + name);
 
         resourceId = getResources().getIdentifier(name, "drawable", getPackageName());
 
@@ -502,7 +467,6 @@ public class SoftKeyboard extends InputMethodService {
         int resourceId = 0;
         resourceId = getResources().getIdentifier(drawable, "drawable",
                 getPackageName());
-        //Log.d("Location", "R id " + resourceId);
         return resourceId;
     }
 

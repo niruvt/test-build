@@ -60,7 +60,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 	}
 
 	private void handleRafar(HashMap<Integer, KeyAttr> sKeys) {
-		Log.d("debug","Handle rafar");
 		for(KeyAttr key : keyArray){
 			String newLabel = RA + HALANT + mKeys.get(key.code).label;
 			key.label = newLabel;
@@ -70,7 +69,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 	}
 
 	private void handleTrakar(HashMap<Integer, KeyAttr> sKeys) {
-		Log.d("debug","Handle trakar");
 		for(KeyAttr key : keyArray){
 			String newLabel = mKeys.get(key.code).label + HALANT + RA;
 			key.label = newLabel;
@@ -80,7 +78,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 	}
 
 	private void handleNukta(HashMap<Integer, KeyAttr> sKeys) {
-		Log.d("debug","Handle nukta");
 		for(KeyAttr key : keyArray){
 			if(key.code == 13){
 				String newLabel = "\u09DC";

@@ -12,7 +12,6 @@ import android.util.Log;
 public class MainLanguage extends Language{
 
 	public MainLanguage() {
-		//Log.d("debug","marathi");
 		name = "marathi";
 		symbol = "\u092E";
 		nKeys = 136;

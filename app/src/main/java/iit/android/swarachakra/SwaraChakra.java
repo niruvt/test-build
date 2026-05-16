@@ -69,7 +69,6 @@ public class SwaraChakra extends View {
 	@SuppressLint("NewApi")
 	private void init(Context context){
 
-        //Log.d("jank","init() of Swarachakra");
 		String layoutName = getResources().getString(R.string.layout);
 		//SharedPreferences prefs = UserSettings.getPrefs();
 		SharedPreferences prefs;//UserSettings.getPrefs();
@@ -156,11 +155,9 @@ public class SwaraChakra extends View {
 		case 0:
                 //mOuterRadius = (float) (0.25 * Math.min(screen_width, screen_height));
                 mOuterRadius = (float) (0.35 * Math.min(screen_width, screen_height));
-                //Log.d("radius", "0.25");
 			break;
 		case 1:
 			mOuterRadius = (float) (0.25*Math.min(screen_width, screen_height));
-                //Log.d("radius", "0.17");
 		default:
 			
 			break;
@@ -204,10 +201,8 @@ public class SwaraChakra extends View {
 	
 	public void setArc(int region){
 
-        //Log.d("jank","setarc()");
 		if(region != arc){
 			arc = region;
-            //Log.d("jank","setarc(): invalidate()");
 			invalidate();
 		}
 	}
@@ -231,7 +226,6 @@ public class SwaraChakra extends View {
 		super.onDraw(canvas);
 		//canvas.drawCircle(centerX, centerY, mOuterRadius, mArcDividerPaint);
 
-        //Log.d("jank","Ondraw()");
 
 		//get layout to determine the chakra drawing to use
 		String layoutName = getResources().getString(R.string.layout);

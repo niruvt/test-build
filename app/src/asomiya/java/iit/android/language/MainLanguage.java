@@ -13,7 +13,6 @@ public class MainLanguage extends Language {
 
     public MainLanguage() {
         name = "assamese";
-        Log.d("debug","in Main Language():"+name);
         symbol = "\u0985";
         nKeys = 106;
         myKey = new ArrayList<KeyAttr>(nKeys);

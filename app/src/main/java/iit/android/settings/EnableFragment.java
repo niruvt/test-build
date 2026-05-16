@@ -60,14 +60,12 @@ public class EnableFragment extends Fragment {
 		enableButton.setText(enableButtonText);
 
         //TODO:
-       /* Log.d("dbgm", "Enable oncreateview - s:-" + langButton.getText() + "-");
-        if(langButton.getText() =="ENG")
+       /*        if(langButton.getText() =="ENG")
             langButton.setText("MAR");
         else
             langButton.setText("ENG");*/
 
-       /* Log.d("dbgm", "Enable oncreateview - e:-" + langButton.getText() + "-");
-		Log.d("dbgm", "Enable onCreateView");*/
+       /*		Log.d("dbgm", "Enable onCreateView");*/
 		return v;
 	}
 
@@ -98,7 +96,6 @@ public class EnableFragment extends Fragment {
     }*/
 	/*@Override
 	public void onClick(View v) {
-		Log.d("dbgm", "Enable click:-"+((Button) v).getText()+"-");
 		MainActivity mainApp = MainActivity.getMainApp();
 		//String enableButtonText = mainApp.getStringResourceByName(mainApp.getLabel());
 
@@ -108,6 +105,5 @@ public class EnableFragment extends Fragment {
 		else
 			((Button) v).setText("ENG");
 
-        Log.d("dbgm", "Enable click-e:-" +((Button) v).getText()+"-");
     }*/
 }

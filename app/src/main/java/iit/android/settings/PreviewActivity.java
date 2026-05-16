@@ -86,7 +86,6 @@ public class PreviewActivity extends AppCompatActivity {
     }
 
     private void showPreview() {
-        Log.d("dbgm", "showpreview() in preview");
         back.setText(title);
 
         previewEditText.requestFocus();

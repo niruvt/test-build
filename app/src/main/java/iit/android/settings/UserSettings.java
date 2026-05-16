@@ -39,7 +39,6 @@ public class UserSettings extends PreferenceFragmentCompat {
             editor.putBoolean("is_first_run", false);
             editor.putInt(layout, SettingsActivity.LAYOUT_HIVE);
             editor.putInt(screensize, SettingsActivity.isTablet);
-            Log.d("settings", "" + prefs.getInt(screensize, 0));
             editor.commit();
         }
     }
