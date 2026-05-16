@@ -1,0 +1,134 @@
+name: build and release apks
+
+# Trigger: pushing a version tag like v0.1.0, v1.2.3, etc.
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  build:
+    name: build all language apks
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. checkout ────────────────────────────────────────────────────────
+      - name: checkout source
+        uses: actions/checkout@v4
+
+      # ── 2. java ────────────────────────────────────────────────────────────
+      - name: set up jdk 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+
+      # ── 3. android sdk ─────────────────────────────────────────────────────
+      - name: set up android sdk
+        uses: android-actions/setup-android@v3
+
+      - name: install sdk components
+        run: |
+          sdkmanager "platforms;android-34" "build-tools;34.0.0"
+
+      # ── 4. signing keystore ────────────────────────────────────────────────
+      # Decode the base64-encoded keystore stored as a repository secret.
+      - name: decode keystore
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > keystore.jks
+
+      # ── 5. build each language flavor ──────────────────────────────────────
+      - name: make gradlew executable
+        run: chmod +x gradlew
+
+      - name: build and sign all apks
+        env:
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_ALIAS:          ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD:       ${{ secrets.KEY_PASSWORD }}
+        run: |
+          # Strip the leading 'v' from the tag to get the bare semver (e.g. v0.1.0 -> 0.1.0)
+          VERSION="${GITHUB_REF_NAME#v}"
+          mkdir -p release-apks
+
+          LANGUAGES="bengali gujarati hindi kannada konkani malayalam marathi oriya telugu tamil asomiya punjabi"
+
+          for lang in $LANGUAGES; do
+            cap="$(echo ${lang:0:1} | tr '[:lower:]' '[:upper:]')${lang:1}"
+            echo "▶ building swarachakra-${lang}-${VERSION}.apk  (flavor: ${lang})"
+
+            # Build the release variant (unsigned)
+            ./gradlew "assemble${cap}Release" --quiet
+
+            # Find the unsigned APK gradle produced
+            unsigned=$(find "app/build/outputs/apk/${lang}/release" -name "*.apk" | head -1)
+            if [ -z "$unsigned" ]; then
+              echo "  ✗ APK not found for ${lang}, skipping"
+              continue
+            fi
+
+            # Sign with apksigner
+            signed="release-apks/swarachakra-${lang}-${VERSION}.apk"
+            "$ANDROID_HOME/build-tools/34.0.0/apksigner" sign \
+              --ks keystore.jks \
+              --ks-pass "pass:${KEY_STORE_PASSWORD}" \
+              --ks-key-alias "${KEY_ALIAS}" \
+              --key-pass "pass:${KEY_PASSWORD}" \
+              --out "${signed}" \
+              "${unsigned}"
+
+            echo "  ✓ signed: ${signed}"
+          done
+
+      # ── 6. verify all 12 apks were produced ───────────────────────────────
+      - name: verify apk count
+        run: |
+          count=$(ls release-apks/*.apk 2>/dev/null | wc -l)
+          echo "APKs built: ${count}"
+          ls -lh release-apks/
+          if [ "$count" -lt 12 ]; then
+            echo "expected 12 apks, got ${count} — failing"
+            exit 1
+          fi
+
+      # ── 7. create github release and upload ───────────────────────────────
+      - name: create github release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: "Swarachakra ${{ github.ref_name }}"
+          tag_name: ${{ github.ref_name }}
+          draft: false
+          prerelease: ${{ startsWith(github.ref_name, 'v0.') }}
+          body: |
+            ## Swarachakra ${{ github.ref_name }}
+
+            Keyboard APKs for all 12 supported languages.
+            Install only the language(s) you need.
+
+            | APK | Language |
+            |-----|----------|
+            | swarachakra-asomiya-*.apk   | Asomiya (Assamese) |
+            | swarachakra-bengali-*.apk   | Bengali            |
+            | swarachakra-gujarati-*.apk  | Gujarati           |
+            | swarachakra-hindi-*.apk     | Hindi              |
+            | swarachakra-kannada-*.apk   | Kannada            |
+            | swarachakra-konkani-*.apk   | Konkani            |
+            | swarachakra-malayalam-*.apk | Malayalam          |
+            | swarachakra-marathi-*.apk   | Marathi            |
+            | swarachakra-oriya-*.apk     | Odia               |
+            | swarachakra-punjabi-*.apk   | Punjabi            |
+            | swarachakra-tamil-*.apk     | Tamil              |
+            | swarachakra-telugu-*.apk    | Telugu             |
+
+            **Install via ADB** (works on GrapheneOS without enabling unknown sources):
+            ```
+            adb install swarachakra-hindi-${{ github.ref_name }}.apk
+            ```
+
+            **Install via Obtainium**: point Obtainium at this repository.
+            Set the APK filter to `swarachakra-<your-language>-` to track only
+            the language you want.
+          files: release-apks/*.apk
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
