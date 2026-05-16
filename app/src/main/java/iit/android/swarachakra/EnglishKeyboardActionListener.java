@@ -170,7 +170,6 @@ public class EnglishKeyboardActionListener implements OnKeyboardActionListener,
 		if (keyCode == SYMBOLS) {
 			inQuickSymbolMode = true;
 			handleSpecialInput(SYMBOLS);
-			Log.d("testing", "on press shift");
 		}
 		if (!(mSpecialKeys.contains(keyCode))) {
 			mHandler.removeMessages(MSG_REMOVE_PREVIEW);

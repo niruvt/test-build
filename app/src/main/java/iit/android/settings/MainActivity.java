@@ -119,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
 			resId = getResources()
 					.getIdentifier(aString, "string", packageName);
 		}
-		//Log.d("dbgm","Resource string:"+getString(resId));
 		return getString(resId);
 	}
 
@@ -253,14 +252,12 @@ public class MainActivity extends AppCompatActivity {
             title = getResources().getString(R.string.menu_language);
             //v.setText(title);
         }
-        Log.d("dbgm","Label now:"+title);
         return title;
     }
 
 	public void changeLanguage(View v){
 		// Handle presses on the action bar items
 
-        //Log.d("dbgm", "Button text:" + ((Button)v).getText());
 
 		String title="";
 		if (!inEnglish) {
@@ -276,7 +273,6 @@ public class MainActivity extends AppCompatActivity {
 			//v.setText(title);
 		}
 
-        //Log.d("dbgm", "Button text to be set to:" + title);
 
 		//Button b = (Button) v;
 
@@ -297,11 +293,9 @@ public class MainActivity extends AppCompatActivity {
         //b.setText(title);
         //b.setText("");
         //((Button) v).setText(title);
-        //Log.d("dbgm", "1. Button text set to:" + b.getText());
         //b.setText("");
 
 		refreshActivity();
-		//Log.d("dbgm", "2. Button text set to:" + b.getText());
 //        /*b.setText(title);
 //        ((Button) v).setText(title);
 //        Log.d("dbgm", "2. Button text set to:" + b.getText());*/
@@ -341,15 +335,12 @@ public class MainActivity extends AppCompatActivity {
 		case 0:
 
 			if (isFirstRun) {
-                Log.d("dbgm","First run, pager 1");
 				pager.setCurrentItem(1, true);
                /* Button bb = (Button)findViewById(R.id.toggleLanguage_enable);
-                Log.d("dbgm", "Button text current:" + bb.getText());
                 bb.setText(getLabel());*/
 
             }
 			else {
-                Log.d("dbgm","Not first run, pager 0");
 				pager.setCurrentItem(0, true);
             }
 
@@ -357,38 +348,30 @@ public class MainActivity extends AppCompatActivity {
 		case 1:
 
 			if (isFirstRun) {
-                Log.d("dbgm","First run pager 2");
 				pager.setCurrentItem(2, true);
 
             }
 			else {
-                Log.d("dbgm","Not first run pager 1");
 				pager.setCurrentItem(1, true);
             }
 
-            Log.d("dbgm", "Pager item count:"+pageAdapter.getCount());
             /*Button bb2 = (Button)findViewById(R.id.toggleLanguage_default);
-            Log.d("dbgm", "Button text current:" + bb2.getText());
             bb2.setText(getLabel());*/
 			break;
 		case 2:
 			if (isFirstRun) {
-                Log.d("dbgm","First run pager 3");
 				String key = this.getResources().getString(
 						R.string.first_run_tutorial);
 				editor.putBoolean(key, false);
 				editor.commit();
 				pager.setCurrentItem(3, true);
 			} else {
-                Log.d("dbgm","Not first run open settings app");
 				openSettingsApp();
 			}
             //Button bb3 = (Button)findViewById(R.id.toggleLanguage_default);
-            //Log.d("dbgm", "Button text current:" + bb3.getText());
             //bb3.setText(getLabel());
 			break;
 		default:
-			Log.d("dbgm", "I'm defaulting");
 			pager.setCurrentItem(0);
 		}
 	}

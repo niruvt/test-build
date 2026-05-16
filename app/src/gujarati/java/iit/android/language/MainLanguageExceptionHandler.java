@@ -148,9 +148,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
                     vowelModifiers.add((char) j);
                 }
 
-                //System.out.println("language modifiers list cvm"+chakraVowelModifiers.toString());
-                //System.out.println("language modifiers list vm"+vowelModifiers.toString());
-            } else {
+                //                //            } else {
                 return;
             }
         }
@@ -173,7 +171,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 //                List<String> conjunctValues = Arrays.asList(mContext.getResources().getStringArray(R.array.conjunct_1_array));
                 conjuncts.put(suffixValue, conjunctValues);
             } else {
-                Log.d("System", "in else in else" + i);
                 return;
             }
         }
@@ -185,15 +182,12 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         int id_array = mContext.getResources().getIdentifier("in_chakra_whole_vowel", "array", PACKAGE_NAME);
         List<CharSequence> conjunctValues = Arrays.asList(mContext.getResources().getTextArray(id_array));
 
-        //System.out.println("language modifiers list vm"+conjunctValues.toString()+":"+conjunctValues.get(0).charAt(0));
-        //chakraWholeVowels.add(conjunctValues.get(0).charAt(0));
+        //        //chakraWholeVowels.add(conjunctValues.get(0).charAt(0));
         for(int i=0;i<conjunctValues.size();i++){
-            System.out.println("Print:::"+i);
             chakraWholeVowels.add(conjunctValues.get(i).charAt(0));
         }
 
-        // System.out.println("language modifiers list vm"+chakraWholeVowels.toString());
-    }
+        //    }
 
     //initialize language special cases
 
@@ -262,11 +256,9 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
             languageConsonants.add((char) i);
         }
 
-        //System.out.println("lang consonats"+languageConsonants.toString());
-    }
+        //    }
 
     private void handleRafar(HashMap<Integer, KeyAttr> sKeys) {
-        //Log.d("debug","rafar");
         for (KeyAttr key : keyArray) {
             String newLabel = RA + HALANT + mKeys.get(key.code).label;
             key.label = newLabel;
@@ -276,7 +268,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
     }
 
 	private void handleTrakar(HashMap<Integer, KeyAttr> sKeys) {
-		//Log.d("debug","trakar");
 		for(KeyAttr key : keyArray){
 			String newLabel = mKeys.get(key.code).label + HALANT + RA;
 			key.label = newLabel;
@@ -286,7 +277,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 	}
 
 	/*private void handleEyelashRa(HashMap<Integer, KeyAttr> sKeys) {
-		//Log.d("debug","eyelash");
 
         int[] temp = {26,33};
 
@@ -305,12 +295,10 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 		for(KeyAttr key : keyArray){
             if (eyelashraKeyValues.containsKey(key.code)) {
                 String newLabel = eyelashraKeyValues.get(key.code);
-                //Log.d("debug","Keep this one button "+key.code);
 
 			key.label = newLabel;
 			key.showChakra = true;
             } else {
-                //Log.d("debug","Hide this button "+key.code);
                 //key.showChakra = false;
                 //key.label = "";
                 //key.code = 0;
@@ -334,25 +322,19 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
             if (edt != null) {
 //                mKeyLogger.extractedText = edt.text.toString();
             } else {
-//                Log.d(mKeyLogger.TAG, "handlechar(): About to hide, nothing to save" + edt);
             }
         } catch (Exception ex) {
-//            Log.d(mKeyLogger.TAG, "handlechar():ex " + ex.getMessage());
         }
     }
 
     public void handleBackSpaceDeleteChar(InputConnection ic) {
         mInputConnection = ic;
-       // Log.v("System", mContext.getPackageName().toString());
         CharSequence selection = mInputConnection.getSelectedText(0);
         if (selection == null) {
             ExtractedTextRequest etr = new ExtractedTextRequest();
             if(mInputConnection.getExtractedText(etr, 0)!= null) {
             //Finish composing text
             mInputConnection.finishComposingText();
-            //Log.v("System", "language Chars" + languageCharacterSet.toString());
-            //Log.v("System", "spcial Chars" + specialCases.toString());
-            //Log.v("System", "Language consonants Chars" + languageConsonants.toString());
             //if(mInputConnection.getExtractedText(new ExtractedTextRequest(), 0).selectionStart>0) {
 
             repositionCursor(mInputConnection.getExtractedText(etr, 0).selectionStart);
@@ -361,22 +343,16 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
             //edit function t accommodate language specific rules. Handles ra-halant, halant-ra combinations and places cursor after the CV if in between.
             CharSequence charBefore = mInputConnection.getTextBeforeCursor(1, 0);
 
-            Log.v("System", String.valueOf(charBefore));
             if (charBefore.length() > 0) {
                 //Handle space deletion, check if devnagari
                 if (languageCharacterSet.contains(charBefore.charAt(0)) && !specialCases.contains(charBefore.charAt(0))) {
                     CharSequence before = mInputConnection.getTextBeforeCursor(15, 0);
                     String test = before.toString();
-                    Log.v("System", test + "tesst string");
 
                     int i = test.length() - 1;
                     for (; i >= 0; i--) {
-                        Log.v("System", test.charAt(i) + " test char string");
-                        Log.d("track", "i=" + i + ",test=" + test + ", length=" + test.length());
                         if (languageCharacterSet.contains(test.charAt(i)) && !specialCases.contains(test.charAt(i))) {
-                            Log.v("System", test.charAt(i) + " language characterset");
                             if (languageConsonants.contains(test.charAt(i))) {
-                                Log.v("System", test.charAt(i) + " language consonant");
                                 //handle conjuncts if present in the language set
                                 // 4 CASES IN DEVANAGARI
                                 //check if cnsonant in conjunct list ArrayList<Char,String> ie: <'sha' ,"ka+halant+sha">
@@ -384,12 +360,10 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
                                 // then get value and check if it is equal. if yes INCLUDE the previous two chars to delete.
                                 // then compare the prev two + current to find if
                                 if (conjuncts.containsKey(test.charAt(i))) {
-                                    Log.v("System", test.charAt(i) + " in conjuncts");
                                     //deleting ksha with rafar code
 										if(String.valueOf(test.charAt(i)).equals("ષ")){
                                         if(test.length()>4 && i>3) {
 
-                                            Log.d("track","i="+i+",test="+test+", length="+test.length());
 												if (test.substring(i - 4, i).equals("ર્ક્")) {
                                                 if (conjuncts.get(test.charAt(i)).contains(test.substring(i - 4, i))) {
                                                     i -= 4;
@@ -456,16 +430,13 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
                                 }
                                 break;
                             }else{
-                                Log.d("System","Ignore");
                                 //i--;
                             }
                         } else {
-                            Log.v("System", test.charAt(i) + " out");
                             i++;
                             break;
                         }
                     }
-                    Log.v("System", test.length() - i + " no. of chars to be deleted");
                     mInputConnection.deleteSurroundingText(test.length() - i, 0);
                 } else {
                     mInputConnection.deleteSurroundingText(1, 0);
@@ -564,13 +535,11 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 		for (KeyAttr key : keyArray) {
 			if (nuktaKeyValues.containsKey(key.code)) {
 				String newLabel = nuktaKeyValues.get(key.code);
-				//Log.d("debug","Keep this one button "+key.code);
 
 
 				key.label = newLabel;
 				key.showChakra = true;
 			} else {
-				//Log.d("debug","Hide this button "+key.code);
 				//key.showChakra = false;
 				//key.label = "";
 				//key.code = 0;
@@ -587,7 +556,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
     public int repositionCursor(int selectionEnd) {
         mInputConnection.setSelection(selectionEnd, selectionEnd);
         CharSequence charAfter = mInputConnection.getTextAfterCursor(2, 0);
-        Log.v("System", String.valueOf(charAfter) + "repositionCursour");
         if (charAfter.length() == 2) {
 			if (charAfter.toString().equals("્ર")) {
                 int selectionStart = mInputConnection.getExtractedText(new ExtractedTextRequest(), 0).selectionStart;
@@ -595,7 +563,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
             }
         }
         CharSequence charBefore = mInputConnection.getTextBeforeCursor(2, 0);
-        Log.v("System", String.valueOf(charBefore) + "repositionCursour Char Before");
         if (charBefore.length() == 2) {
 			if (charBefore.toString().equals("ર્")) {
                 int selectionStart = mInputConnection.getExtractedText(new ExtractedTextRequest(), 0).selectionStart;

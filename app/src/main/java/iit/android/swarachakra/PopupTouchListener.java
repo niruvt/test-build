@@ -34,7 +34,6 @@ public class PopupTouchListener implements OnTouchListener {
 			
 			return true;
 		}
-		//Log.d("chakra", "touch action = " + action);
 		
 		
 		return false;

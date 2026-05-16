@@ -54,6 +54,5 @@ MainActivity mainApp = MainActivity.getMainApp();
 
 	/*@Override
 	public void onClick(View v) {
-		Log.d("dbgm", "Default click");
 	}*/
 }

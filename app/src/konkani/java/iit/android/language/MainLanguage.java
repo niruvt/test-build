@@ -12,7 +12,6 @@ import android.util.Log;
 public class MainLanguage extends Language{
 
 	public MainLanguage() {
-		Log.d("debug","konkani");
 		name = "konkani";
 		symbol = "\u0915\u094B\u0902";
 		nKeys = 106;

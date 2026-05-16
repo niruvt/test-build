@@ -57,29 +57,24 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
             if(mkal == null)
                 return;
 
-			//mLog.d("jank","handleMessage()");
 			switch (msg.what) {
 			case MSG_SHOW_CHAKRA:
 
                 if (mkal.mChakraPopup.isShowing()) {
 
                     mkal.mChakraPopup.update(mkal.chakraX, mkal.chakraY, mkal.mKeyboardView.width, mkal.mKeyboardView.height);
-					//mLog.d("track", "update chakra loc");
 
                 }else{
 
                     mChakraPopup.setWidth(mKeyboardView.width);
                     mChakraPopup.setHeight(mKeyboardView.height);
                     mChakraPopup.showAtLocation(mPopupParent, Gravity.NO_GRAVITY, chakraX, chakraY);
-                    Log.d("track", "show chakra at loc:"+mkal.chakraX+","+mkal.chakraY);
 
                 }
                 mkal.mSwaraChakra.setVisibility(View.VISIBLE);
-				//mLog.d("track", "Set visible()---");
 				//mKeyboardView.setAlpha(0.50f);
 				break;
 			case MSG_REMOVE_CHAKRA:
-				//mLog.d("track", "Hide chakra()--");
                 mkal.removeChakra();
 
 				break;
@@ -117,7 +112,6 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 
 	private static void showChakraAt(int posX, int posY, int keyCode) {
 
-        //Log.d("track","in ShowChakra()");
 		final PopupWindow chakraPopup = mChakraPopup;
 
         //Move it to the time KBView changed, is it even needed(?)
@@ -139,7 +133,6 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 			{
 				posX = key.x + (key.width/2);
 				posY = key.y + (key.height/2);
-                //Log.d("track","x,y"+key.x + "," + key.y);
 			}
 		}
 
@@ -149,14 +142,12 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 		/*if (chakraPopup.isShowing()) {
 
 			//chakraPopup.update(x, y, mKeyboardView.width, mKeyboardView.height);
-            Log.d("track", "update chakra loc");
 
 		}else{
 
 			*//*chakraPopup.setWidth(mKeyboardView.width);
 			chakraPopup.setHeight(mKeyboardView.height);
 			chakraPopup.showAtLocation(mPopupParent, Gravity.NO_GRAVITY, x, y);*//*
-            Log.d("track", "show chakra at loc:"+x+","+y);
 
 		}*/
         chakraX = x;
@@ -315,11 +306,9 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 		}
 
 		if (isChakraVisible) {
-			System.out.println("in isCharavisi"+mExceptionLangHandler.chakraWholeVowels.toString());
 			String text = mSwaraChakra.getText();
 			if(!preText.equals("") && ( mExceptionLangHandler.chakraWholeVowels.contains(text.charAt(0))
 					|| mExceptionLangHandler.specialCases.contains(text.charAt(0)) || mExceptionLangHandler.chakraVowelModifiers.contains(text.charAt(0)))){
-				System.out.println(text+"in chakra whole vowels");
 				text = preText+text;
 			}
 			if (mSwaraChakra.isHalant()) {
@@ -469,18 +458,13 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 
 	}
 	private void handlePreview(){
-		//mLog.v("system","insidePreivew");
 		CharSequence before = mInputConnection.getTextBeforeCursor(15, 0);
 		if(before!=null) {
 		String test = before.toString();
 		int i = test.length() - 1;
-		//Log.v("system","charAt i:"+test.charAt(i));
-		//Log.v("system","charAt i-1:"+test.charAt(i-1));
 		if(i>0 && !mExceptionLangHandler.languageConsonants.contains(test.charAt(i))){
-			//mLog.v("system","insideLangConsonants");
 			if((i)>0 && mExceptionLangHandler.chakraVowelModifiers.contains(test.charAt(i)) ){
 				if (String.valueOf(test.charAt(i)).equals("्")) {
-					//mLog.v("system","insideHalant check");
 					//Character c = test.charAt(i-1);
 					String str = String.valueOf(test.charAt(i));
 					int consonantCount =1;
@@ -501,13 +485,10 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 						}else{
 							break;
 						}
-						//mLog.v("system","J="+j+",i="+i);
 					}
-					//mLog.v("system", "halat string " + str);
 					if(str != null || !str.equals("")) {
 						ExtractedText edt = mInputConnection.getExtractedText(new ExtractedTextRequest(),0);
 						int lastChar = mInputConnection.getTextBeforeCursor(edt.text.length(), 0).length();// The whole text in text box is considered to be less than 1000 characters
-						//mLog.v("system","stringLength:"+edt.text.length()+", lastC="+lastChar+", firstC="+(lastChar-str.length()));
 						mInputConnection.setComposingRegion(lastChar-(str.length()), lastChar);
 						mInputConnection.setComposingText(str,1);
 					}
@@ -561,10 +542,8 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 				//mKeyLogger.extractedText = edt.text.toString();
 			}
 			else{
-				//mLog.d(mKeyLogger.TAG,"handlechar(): About to hide, nothing to save" + edt);
 			}
 			}catch(Exception ex){
-			//mLog.d(mKeyLogger.TAG,"handlechar():ex "+ex.getMessage());
 		}	
 	}
 
@@ -576,7 +555,6 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 				String nextLabel = "";
 				if (inExceptionMode && sKeys.containsKey(code)) {
 					nextLabel = sKeys.get(code).label;
-					//mLog.d("exhandle", "nextLabel = " + nextLabel);
 				} else {
 					nextLabel = preText + mKeys.get(code).label;
 				}
@@ -682,7 +660,6 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 					String text = mSwaraChakra.getText();
 				if(!preText.equals("") && (mExceptionLangHandler.chakraWholeVowels.contains(text.charAt(0))
 						|| mExceptionLangHandler.specialCases.contains(text.charAt(0)) || mExceptionLangHandler.chakraVowelModifiers.contains(text.charAt(0)) )){
-					System.out.println(text+"in chakra whole vowels");
 					text = preText+text;
 				}
 				mInputConnection.setComposingText(text, 1);
@@ -693,7 +670,6 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 					String text = mSwaraChakra.getText();
 				if(!preText.equals("") && (mExceptionLangHandler.chakraWholeVowels.contains(text.charAt(0))
 						|| mExceptionLangHandler.specialCases.contains(text.charAt(0)) || mExceptionLangHandler.chakraVowelModifiers.contains(text.charAt(0)) )){
-					System.out.println(text+"in chakra whole vowels");
 					text = preText+text;
 				}
 					mInputConnection.setComposingText(text, 1);
