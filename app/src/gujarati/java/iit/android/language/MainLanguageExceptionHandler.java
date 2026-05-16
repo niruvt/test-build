@@ -181,22 +181,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         for(int i=0;i<conjunctValues.size();i++){
             chakraWholeVowels.add(conjunctValues.get(i).charAt(0));
         }
-
-        //    }
-
-    //initialize language special cases
-            } else {
-                return;
-            }
-        }
-
     }
-
-
-    //initialize array with all characters of the script
-    }
-
-    //initialize all the consonants in the language.
 
     private void updateExtractedText() {
         try {

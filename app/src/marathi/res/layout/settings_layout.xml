@@ -365,7 +365,7 @@
         android:layout_margin="16dp"
         android:clickable="true"
         android.support.design:fabSize="0"
-        android:src="@drawable/marathi"
+        android:src="@drawable/language_toggle"
         app:layout_anchor="@+id/settings_relative"
         app:layout_anchorGravity="bottom|right|end"/>
 </android.support.design.widget.CoordinatorLayout>

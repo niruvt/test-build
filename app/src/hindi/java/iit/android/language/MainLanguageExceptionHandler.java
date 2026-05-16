@@ -15,6 +15,15 @@ import androidx.collection.SimpleArrayMap;
 import android.util.Log;
 
 public class MainLanguageExceptionHandler implements ExceptionHandler {
+    public java.util.ArrayList<Character> languageConsonants = null;
+    public java.util.ArrayList<Character> chakraVowelModifiers = null;
+    public java.util.ArrayList<Character> chakraWholeVowels = null;
+    public java.util.ArrayList<Character> specialCases = null;
+
+    public void handleBackSpaceDeleteChar(android.view.inputmethod.InputConnection ic) {
+        // not implemented for this language
+    }
+
 
     private ArrayList<KeyAttr> keyArray;
     private HashMap<Integer, KeyAttr> mKeys;

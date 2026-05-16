@@ -236,4 +236,16 @@
 
 
 </RelativeLayout>
+
+    <!-- stub views so R.id.* exists for all language builds; visibility=gone, zero size -->
+    <View android:id="@+id/tapaatap_button"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="0dp" android:layout_height="0dp"
+        android:visibility="gone" />
+    <RadioGroup android:id="@+id/layoutSizeRadioGroup"
+        android:layout_width="0dp" android:layout_height="0dp"
+        android:visibility="gone" />
+    <View android:id="@+id/toggleLanguage_settings"
+        android:layout_width="0dp" android:layout_height="0dp"
+        android:visibility="gone" />
 </ScrollView>
