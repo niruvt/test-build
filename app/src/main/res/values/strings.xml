@@ -1,9 +1,6 @@
 <resources>
-    <string name="konkani_title">स्वरचक्र कोंकणी</string>
 
     <!-- Logger urls -->
-    <string name="logger_url_beta"></string>
-    <string name="logger_url_production"></string>
     
     <!-- Special characters -->
     <string name="backspace">400</string>
@@ -76,7 +73,6 @@
     <string name="height5">tallest</string>
     <string name="heightreco">recommended</string>
 
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
 </resources>
