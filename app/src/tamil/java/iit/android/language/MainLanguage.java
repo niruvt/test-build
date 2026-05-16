@@ -11,7 +11,7 @@ public class MainLanguage extends Language{
 
     public MainLanguage() {
         name = "tamil";
-        symbol = "tam";
+        symbol = "\u0BA4";
         nKeys = 88;
         myKey = new ArrayList<KeyAttr>(nKeys);
         defaultChakra = new String[] {"\u0BBE", "\u0BBF", "\u0BC0", "\u0BC1", "\u0BC2", "\u0BC6", "\u0BC7", "\u0BC8", "\u0BCA", "\u0BCB"};

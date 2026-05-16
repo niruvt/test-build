@@ -14,7 +14,7 @@ public class MainLanguage extends Language {
     public MainLanguage() {
         name = "assamese";
         Log.d("debug","in Main Language():"+name);
-        symbol = "As";
+        symbol = "\u0985";
         nKeys = 106;
         myKey = new ArrayList<KeyAttr>(nKeys);
         defaultChakra = new String[] { "\u09CD", "\u09BE", "\u09BF", "\u09C0","\u09C1", "\u09C2", "\u09C7", "\u09C8", "\u09CB", "\u09CC" };
