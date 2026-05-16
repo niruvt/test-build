@@ -5,22 +5,17 @@ import java.io.InputStream;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.DisplayMetrics;
 import android.graphics.Canvas;
 import android.graphics.Movie;
-import android.graphics.Point;
 import android.util.AttributeSet;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 
 public class GIFView extends View{
 
     Movie movie;
     long moviestart;
 
-    WindowManager wm;
-    Display display;
-    Point size = new Point();
     int screenwidth;
     int screenheight;
     int gifheight = 858;
@@ -41,11 +36,9 @@ public class GIFView extends View{
 
     @SuppressLint("NewApi") public void loadGIFResource(Context context, int id, int containHeight, int containWidth)
     {
-    	wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-    	display = wm.getDefaultDisplay();
-    	display.getSize(size);
-    	screenwidth = size.x;
-    	screenheight = size.y;
+        	DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+    	screenwidth = displayMetrics.widthPixels;
+    	screenheight = displayMetrics.heightPixels;
         scaleWidth = (float) ((scaleFactor*screenwidth / (1f*gifwidth)));
         scaleHeight = (float) ((scaleFactor*screenheight / (1f*gifheight)));
     	

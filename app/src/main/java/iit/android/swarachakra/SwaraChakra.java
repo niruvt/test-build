@@ -16,12 +16,9 @@ import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 
 import iit.android.settings.SettingsActivity;
-import iit.android.settings.UserSettings;
 
 public class SwaraChakra extends View {
 	private float mOuterRadius;
@@ -139,12 +136,8 @@ public class SwaraChakra extends View {
 		setLayerType(View.LAYER_TYPE_NONE, null);
 		arc = -1;
 		
-		WindowManager wm = (WindowManager)context.getSystemService(Context.WINDOW_SERVICE);
-        Display display = wm.getDefaultDisplay();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        display.getMetrics(displayMetrics);
-
-		//font_size = displayMetrics.scaledDensity; // use this as fontsize multiplier.
+        // Use Resources.getDisplayMetrics() - works on all API levels without deprecation
+        android.util.DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         screen_width = displayMetrics.widthPixels;
         screen_height = displayMetrics.heightPixels;
 
