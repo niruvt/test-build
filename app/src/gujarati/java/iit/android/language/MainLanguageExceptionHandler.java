@@ -67,17 +67,13 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         PACKAGE_NAME = mContext.getPackageName();
 
         initializeKeyArray();
-        initializeLanguageCharacterSet();
-        //initialize all the consonants in the language.
-        initializeLanguageConsonants();
-        //initialize special cases where deletin to take place unicde by unicode
-        initializeLanguageSpecialCases();
-        //initialize conjuncts in the language
+        //initialize all the consonants in the language.        //initialize special cases where deletin to take place unicde by unicode        //initialize conjuncts in the language
         initializeConjuncts();
         //initialize Vowel modifiers
         initializeVowelModifiers();
         //initialize whole Vowel
         initializeWholeVowels();
+        mKeys = main.hashThis();
     }
 
     public void setInputConnection(InputConnection ic) {
@@ -112,8 +108,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 			KeyAttr key = new KeyAttr();
 			key.code = i+1;
 			keyArray.add(key);
-			mKeys = main.hashThis();
-		}
+					}
 	}
 
     //initialize Vowel Modifiers
@@ -186,133 +181,6 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         for(int i=0;i<conjunctValues.size();i++){
             chakraWholeVowels.add(conjunctValues.get(i).charAt(0));
         }
-
-        //    }
-
-    //initialize language special cases
-
-    private void initializeLanguageSpecialCases() {
-        specialCases = new ArrayList<Character>();
-        for (int i = 1; ; i++) {
-            String special_identifier_start = "special_" + i + "_start";
-            String special_identifier_end = "special_" + i + "_end";
-            if (mContext.getResources().getIdentifier(special_identifier_start, "string", PACKAGE_NAME) != 0) {
-                int special_id_start = mContext.getResources().getIdentifier(special_identifier_start, "string", PACKAGE_NAME);
-                char special_value_start = mContext.getText(special_id_start).charAt(0);
-                int special_id_end = mContext.getResources().getIdentifier(special_identifier_end, "string", PACKAGE_NAME);
-                char special_value_end = mContext.getText(special_id_end).charAt(0);
-                for (int j = special_value_start; j <= special_value_end; j++) {
-                    specialCases.add((char) j);
-                }
-            } else {
-                return;
-            }
-        }
-
-    }
-
-
-    //initialize array with all characters of the script
-    private void initializeLanguageCharacterSet() {
-        CHARACTER_SET_START = mContext.getText(R.string.character_set_start).charAt(0);
-        CHARACTER_SET_END = mContext.getText(R.string.character_set_end).charAt(0);
-        languageCharacterSet = new ArrayList<Character>();
-        for (int i = CHARACTER_SET_START; i != CHARACTER_SET_END; i++) {
-            languageCharacterSet.add((char) i);
-        }
-    }
-
-    //initialize all the consonants in the language.
-    private void initializeLanguageConsonants() {
-        //initialize omit range from resources
-        languageConsonants = new ArrayList<Character>();
-        CONSONANT_START = mContext.getText(R.string.consonant_set_start).charAt(0);
-        CONSONANT_END = mContext.getText(R.string.consonant_set_end).charAt(0);
-
-        omitConsonantInRange = new HashMap<>();
-
-        for (int i = 1; ; i++) {
-            String omit_start = "omit_" + i + "_start";
-            String omit_end = "omit_" + i + "_end";
-            if (mContext.getResources().getIdentifier(omit_start, "string", PACKAGE_NAME) != 0) {
-                int start_id = mContext.getResources().getIdentifier(omit_start, "string", PACKAGE_NAME);
-                char omit_start_value = mContext.getText(start_id).charAt(0);
-                int end_id = mContext.getResources().getIdentifier(omit_end, "string", PACKAGE_NAME);
-                char omit_end_value = mContext.getText(end_id).charAt(0);
-                omitConsonantInRange.put(omit_start_value, omit_end_value);
-            } else {
-                break;
-            }
-        }
-
-
-        // Add all letters between start and end into the language consonant array - 'languageConsonants'.
-        for (int i = CONSONANT_START; i <= CONSONANT_END; i++) {
-            //omit values in between the range.
-            if (omitConsonantInRange.containsKey((char) i)) {
-                i = omitConsonantInRange.get((char) i);
-                continue;
-            }
-            languageConsonants.add((char) i);
-        }
-
-        //    }
-
-    private void handleRafar(HashMap<Integer, KeyAttr> sKeys) {
-        for (KeyAttr key : keyArray) {
-            String newLabel = RA + HALANT + mKeys.get(key.code).label;
-            key.label = newLabel;
-            key.showChakra = true;
-            sKeys.put(key.code, key);
-        }
-    }
-
-	private void handleTrakar(HashMap<Integer, KeyAttr> sKeys) {
-		for(KeyAttr key : keyArray){
-			String newLabel = mKeys.get(key.code).label + HALANT + RA;
-			key.label = newLabel;
-			key.showChakra = true;
-			sKeys.put(key.code, key);
-		}
-	}
-
-	/*private void handleEyelashRa(HashMap<Integer, KeyAttr> sKeys) {
-
-        int[] temp = {26,33};
-
-        String[] eyelashVal = {"\u0930\u094d\u200d\u092F","\u0930\u094d\u200d\u0939"};
-
-        //ArrayList<Integer> nuktaKeys = new ArrayList<Integer>();
-        SimpleArrayMap<Integer, String> eyelashraKeyValues = new SimpleArrayMap<Integer, String>();
-
-
-        for (int i = 0; i < temp.length; i++) {
-            //nuktaKeys.add(temp[i]);
-			eyelashraKeyValues.put(temp[i], eyelashVal[i]);
-
-        }
-
-		for(KeyAttr key : keyArray){
-            if (eyelashraKeyValues.containsKey(key.code)) {
-                String newLabel = eyelashraKeyValues.get(key.code);
-
-			key.label = newLabel;
-			key.showChakra = true;
-            } else {
-                //key.showChakra = false;
-                //key.label = "";
-                //key.code = 0;
-                //key.icon = "";
-                //key.showIcon = false;
-            }
-			sKeys.put(key.code, key);
-		}
-	}*/
-
-    private void commitText(String text) {
-        mInputConnection.setComposingText(text, 1);
-        mInputConnection.finishComposingText();
-        updateExtractedText();
     }
 
     private void updateExtractedText() {
