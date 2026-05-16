@@ -242,7 +242,7 @@ public class SoftKeyboard extends InputMethodService {
                 if (tempKey.showIcon) {
                     int id = getDrawableId(tempKey.icon);
                     if (id != 0) {
-                        key.icon = getResources().getDrawable(id);
+                        key.icon = ContextCompat.getDrawable(this, id);
                         key.label = null;
                         //Log.d("Location", "set icon " + key.icon);
                     }
@@ -540,12 +540,12 @@ public class SoftKeyboard extends InputMethodService {
                 mEnterKey.iconPreview = null;
 
                 mEnterKey.label = "Go";
-                // mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
+                // mEnterKey.icon = ContextCompat.getDrawable(this, R.drawable.sym_keyboard_return);
                 break;
             case EditorInfo.IME_ACTION_NEXT:
                 mEnterKey.iconPreview = null;
                 mEnterKey.icon = null;
-                // mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
+                // mEnterKey.icon = ContextCompat.getDrawable(this, R.drawable.sym_keyboard_return);
                 mEnterKey.label = "Next";
                 break;
             case EditorInfo.TYPE_TEXT_VARIATION_EMAIL_SUBJECT:
@@ -560,14 +560,14 @@ public class SoftKeyboard extends InputMethodService {
 
                 break;
             case EditorInfo.IME_ACTION_SEARCH:
-                mEnterKey.icon = res.getDrawable(R.drawable.ic_action_search);
+                mEnterKey.icon = ContextCompat.getDrawable(this, R.drawable.ic_action_search);
                 break;
             case EditorInfo.IME_ACTION_SEND:
                 mEnterKey.iconPreview = null;
                 mEnterKey.label = "Send";
                 break;
             default:
-                mEnterKey.icon = res.getDrawable(R.drawable.sym_keyboard_return);
+                mEnterKey.icon = ContextCompat.getDrawable(this, R.drawable.sym_keyboard_return);
                 mEnterKey.label = null;
                 break;
         }
