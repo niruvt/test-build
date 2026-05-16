@@ -29,12 +29,12 @@ MainActivity mainApp = MainActivity.getMainApp();
 			resId = getResources().getIdentifier(
 					languageName + "_" + "menu_language", "string",
 					mainApp.getPackageName());*/
-            langButton.setImageResource(R.drawable.marathi);
+            langButton.setImageResource(R.drawable.language_toggle);
 		}else{
 			/*resId = getResources().getIdentifier(
 					"menu_language", "string",
 					mainApp.getPackageName());*/
-            langButton.setImageResource(R.drawable.english);
+            langButton.setImageResource(R.drawable.english_toggle);
 
 		}
 		//language_text= getResources().getString(resId);
