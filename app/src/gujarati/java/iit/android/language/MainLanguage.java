@@ -572,9 +572,9 @@ public class MainLanguage extends Language{
 		KeyAttr myKey45 = new KeyAttr();
 		myKey45.code = 46;
 		myKey45.label = "\"" ;//Double quote
-		myKey45.showChakra = false ;
-		myKey45.showCustomChakra = false ;
-		myKey45.customChakraLayout = new String[] {} ;
+		myKey45.showChakra = true ;
+		myKey45.showCustomChakra = true ;
+		myKey45.customChakraLayout = new String[] {"","","","\u201D","","","","","\u201C",""} ;
 		myKey45.showIcon = false ;
 		myKey45.icon = "";
 		myKey45.changeLayout = false ;
@@ -584,9 +584,9 @@ public class MainLanguage extends Language{
 		KeyAttr myKey46 = new KeyAttr();
 		myKey46.code = 47;
 		myKey46.label = "\u0027" ;//single quote
-		myKey46.showChakra = false ;
-		myKey46.showCustomChakra = false ;
-		myKey46.customChakraLayout = new String[] {} ;
+		myKey46.showChakra = true ;
+		myKey46.showCustomChakra = true ;
+		myKey46.customChakraLayout = new String[] {"","","","\u2019","","","","","\u2018",""} ;
 		myKey46.showIcon = false ;
 		myKey46.icon = "";
 		myKey46.changeLayout = false ;

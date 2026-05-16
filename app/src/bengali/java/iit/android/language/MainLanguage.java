@@ -574,9 +574,9 @@ public class MainLanguage extends Language {
 		KeyAttr myKey45 = new KeyAttr();
 		myKey45.code = 46;
 		myKey45.label = "\"";
-		myKey45.showChakra = false;
-		myKey45.showCustomChakra = false;
-		myKey45.customChakraLayout = new String[] {};
+		myKey45.showChakra = true;
+		myKey45.showCustomChakra = true;
+		myKey45.customChakraLayout = new String[] {"","","","\u201D","","","","","\u201C",""};
 		myKey45.showIcon = false;
 		myKey45.icon = "";
 		myKey45.changeLayout = false;
