@@ -8,6 +8,7 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import androidx.core.content.ContextCompat;
 import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.KeyboardView.OnKeyboardActionListener;
 import android.os.Handler;
@@ -318,13 +319,11 @@ public class EnglishKeyboardActionListener implements OnKeyboardActionListener,
 					if (!(inSymbolMode)) {
 
 						if (!isPersistent) {
-							Drawable normalShift = mSoftKeyboard.getResources()
-									.getDrawable(R.drawable.shift);
+							Drawable normalShift = ContextCompat.getDrawable(mSoftKeyboard, R.drawable.shift);
 							key.icon = normalShift;
 							key.label = null;
 						} else {
-							Drawable activeShift = mSoftKeyboard.getResources()
-									.getDrawable(R.drawable.shift_active);
+							Drawable activeShift = ContextCompat.getDrawable(mSoftKeyboard, R.drawable.shift_active);
 							key.icon = activeShift;
 							key.label = null;
 						}
