@@ -10,7 +10,7 @@ class CustomPageAdapter extends FragmentPagerAdapter {
     private List<Fragment> fragments;
 
     public CustomPageAdapter(FragmentManager fm, List<Fragment> fragments) {
-        super(fm);
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.fragments = fragments;
     }
 
