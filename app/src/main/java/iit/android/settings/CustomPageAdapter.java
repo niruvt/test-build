@@ -2,27 +2,25 @@ package iit.android.settings;
 
 import java.util.List;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 
 class CustomPageAdapter extends FragmentPagerAdapter {
-	  private List<Fragment> fragments;
-	  public CustomPageAdapter(FragmentManager fm, List<Fragment> fragments) {
-	    super(fm);
-	    this.fragments = fragments;
-	  }
+    private List<Fragment> fragments;
 
-	  @Override 
-	  public Fragment getItem(int position) {
-	    return this.fragments.get(position);
-	  }
+    public CustomPageAdapter(FragmentManager fm, List<Fragment> fragments) {
+        super(fm);
+        this.fragments = fragments;
+    }
 
-	  @Override
-	  public int getCount() {
-	    return this.fragments.size();
+    @Override
+    public Fragment getItem(int position) {
+        return this.fragments.get(position);
+    }
 
-	  }
-
-	}
-
+    @Override
+    public int getCount() {
+        return this.fragments.size();
+    }
+}
