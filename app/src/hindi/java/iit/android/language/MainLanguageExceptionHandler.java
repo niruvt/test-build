@@ -3,13 +3,15 @@ package iit.android.language;
 import iit.android.language.ExceptionHandler;
 import iit.android.language.Language;
 import iit.android.swarachakra.KeyAttr;
+import android.content.Context;
+import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
-import android.support.v4.util.ArrayMap;
-import android.support.v4.util.SimpleArrayMap;
+import androidx.collection.ArrayMap;
+import androidx.collection.SimpleArrayMap;
 import android.util.Log;
 
 public class MainLanguageExceptionHandler implements ExceptionHandler {
@@ -26,7 +28,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
     private static final int TRAKARCODE = 52;
     private static final int NUKTACODE = 51;
 
-    public MainLanguageExceptionHandler(Language lang){
+    public MainLanguageExceptionHandler(Language lang, Context context, InputConnection ic){
         main = lang;
         initializeKeyArray();
     }
