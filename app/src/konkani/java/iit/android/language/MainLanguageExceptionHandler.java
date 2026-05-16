@@ -3,6 +3,8 @@ package iit.android.language;
 import iit.android.language.ExceptionHandler;
 import iit.android.language.Language;
 import iit.android.swarachakra.KeyAttr;
+import android.content.Context;
+import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,7 +26,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 	private static final int TRAKARCODE = 52;
 	private static final int EYELASHRACODE = 51;
 
-	public MainLanguageExceptionHandler(Language lang){
+	public MainLanguageExceptionHandler(Language lang, Context context, InputConnection ic){
 		main = lang;
 		initializeKeyArray();
 	}
