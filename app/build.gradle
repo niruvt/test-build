@@ -1,96 +1,112 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    compileSdk 34
+    namespace 'iit.android.swarachakra'
 
     defaultConfig {
-        applicationId "iit.android.swarachakraMarathi"
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdk 21
+        targetSdk 34
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    flavorDimensions "language"
 
     productFlavors {
         bengali {
+            dimension "language"
             applicationId "iit.android.swarachakraBengali"
-            versionCode 18
-            versionName "2.01"
-        }
-
-        gujarati {
-            applicationId "iit.android.swarachakraGujarati"
-            versionCode 15
-            versionName "2.0"
-        }
-
-        hindi {
-            applicationId "iit.android.swarachakra"
             versionCode 19
-            versionName "2.0"
+            versionName "2.1"
         }
-
+        gujarati {
+            dimension "language"
+            applicationId "iit.android.swarachakraGujarati"
+            versionCode 16
+            versionName "2.1"
+        }
+        hindi {
+            dimension "language"
+            applicationId "iit.android.swarachakra"
+            versionCode 20
+            versionName "2.1"
+        }
         kannada {
+            dimension "language"
             applicationId "iit.android.swarachakraKannada"
-            versionCode 17
-            versionName "2.01"
+            versionCode 18
+            versionName "2.1"
         }
-
         konkani {
+            dimension "language"
             applicationId "iit.android.swarachakraKonkani"
-            versionCode 7
-            versionName "2.01"
+            versionCode 8
+            versionName "2.1"
         }
-
         malayalam {
+            dimension "language"
             applicationId "iit.android.swarachakraMalayalam"
-            versionCode 15
-            versionName "2.01"
+            versionCode 16
+            versionName "2.1"
         }
-
         marathi {
+            dimension "language"
             applicationId "iit.android.swarachakraMarathi"
-            versionCode 35
-            versionName "2.21"
+            versionCode 36
+            versionName "2.1"
         }
-
         oriya {
+            dimension "language"
             applicationId "iit.android.swarachakraOriya"
-            versionCode 2
-            versionName "2.0"
+            versionCode 3
+            versionName "2.1"
         }
-
         telugu {
+            dimension "language"
             applicationId "iit.android.swarachakraTelugu"
-            versionCode 17
-            versionName "2.01"
+            versionCode 18
+            versionName "2.1"
         }
         tamil {
+            dimension "language"
             applicationId "iit.android.swarachakraTamil"
-            versionCode 20
-            versionName "2.01"
+            versionCode 21
+            versionName "2.1"
         }
         asomiya {
+            dimension "language"
             applicationId "iit.android.swarachakraAsomiya"
-            versionCode 21
-            versionName "2.01"
+            versionCode 22
+            versionName "2.1"
         }
         punjabi {
+            dimension "language"
             applicationId "iit.android.swarachakraPunjabi"
-            versionCode 13
-            versionName "2.0"
+            versionCode 14
+            versionName "2.1"
         }
+    }
 
-        buildTypes {
-            release {
-                minifyEnabled false
-                proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-                zipAlignEnabled true
-            }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            debuggable true
         }
     }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.android.support:design:23.1.1'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.fragment:fragment:1.6.1'
+    implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
+    implementation 'com.google.android.material:material:1.11.0'
+    implementation 'androidx.preference:preference:1.2.1'
 }
