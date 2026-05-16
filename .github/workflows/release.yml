@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v[0-9]+.[0-9]+.[0-9]+'
+      - 'v[0-9]+.[0-9]+.[0-9]+-beta.[0-9]+'
 
 jobs:
   build:
@@ -42,7 +43,26 @@ jobs:
           KEY_ALIAS:          ${{ secrets.KEY_ALIAS }}
           KEY_PASSWORD:       ${{ secrets.KEY_PASSWORD }}
         run: |
-          VERSION="${GITHUB_REF_NAME#v}"
+          TAG="${GITHUB_REF_NAME}"
+          VERSION="${TAG#v}"
+
+          # determine if this is a beta build from the tag
+          if echo "$TAG" | grep -q "\-beta\."; then
+            APK_SUFFIX="-beta"
+            IS_PRERELEASE="true"
+          elif echo "$TAG" | grep -qE "^v0\."; then
+            APK_SUFFIX=""
+            IS_PRERELEASE="true"
+          else
+            APK_SUFFIX=""
+            IS_PRERELEASE="false"
+          fi
+
+          echo "TAG=$TAG VERSION=$VERSION SUFFIX=$APK_SUFFIX PRERELEASE=$IS_PRERELEASE"
+          echo "IS_PRERELEASE=$IS_PRERELEASE" >> $GITHUB_ENV
+          echo "APK_SUFFIX=$APK_SUFFIX"       >> $GITHUB_ENV
+          echo "VERSION=$VERSION"             >> $GITHUB_ENV
+
           mkdir -p release-apks
           LANGUAGES="bengali gujarati hindi kannada konkani malayalam marathi oriya telugu tamil asomiya punjabi"
           SUCCEEDED=""
@@ -50,12 +70,13 @@ jobs:
 
           for lang in $LANGUAGES; do
             cap="$(echo ${lang:0:1} | tr '[:lower:]' '[:upper:]')${lang:1}"
-            echo "▶ building swarachakra-${lang}-${VERSION}.apk"
+            apk_name="swarachakra-${lang}-${VERSION}${APK_SUFFIX}.apk"
+            echo "▶ building ${apk_name}"
 
             if ./gradlew "assemble${cap}Release" --quiet; then
               unsigned=$(find "app/build/outputs/apk/${lang}/release" -name "*.apk" 2>/dev/null | head -1)
               if [ -n "$unsigned" ]; then
-                signed="release-apks/swarachakra-${lang}-${VERSION}.apk"
+                signed="release-apks/${apk_name}"
                 if "$ANDROID_HOME/build-tools/34.0.0/apksigner" sign \
                     --ks keystore.jks \
                     --ks-pass "pass:${KEY_STORE_PASSWORD}" \
@@ -63,7 +84,7 @@ jobs:
                     --key-pass "pass:${KEY_PASSWORD}" \
                     --out "${signed}" \
                     "${unsigned}"; then
-                  echo "  ✓ signed: $(basename $signed)"
+                  echo "  ✓ ${apk_name}"
                   SUCCEEDED="$SUCCEEDED $lang"
                 else
                   echo "  ✗ signing failed for $lang"
@@ -83,15 +104,14 @@ jobs:
           echo "========================================"
           echo "  BUILD SUMMARY"
           echo "========================================"
-          echo "  succeeded:$(echo $SUCCEEDED | tr ' ' '\n' | grep -v '^$' | sed 's/^/    /')"
-          echo "  failed:$(echo $FAILED | tr ' ' '\n' | grep -v '^$' | sed 's/^/    /')"
+          for l in $SUCCEEDED; do echo "  ✓ $l"; done
+          for l in $FAILED;    do echo "  ✗ $l"; done
+          count=$(ls release-apks/*.apk 2>/dev/null | wc -l)
+          echo "  total: $count / 12"
           echo "========================================"
 
-          count=$(ls release-apks/*.apk 2>/dev/null | wc -l)
-          echo "  total apks: $count / 12"
-
-          if [ $count -eq 0 ]; then
-            echo "no apks produced, failing"
+          if [ "$count" -eq 0 ]; then
+            echo "no apks produced — failing"
             exit 1
           fi
 
@@ -101,7 +121,7 @@ jobs:
           name: "Swarachakra ${{ github.ref_name }}"
           tag_name: ${{ github.ref_name }}
           draft: false
-          prerelease: ${{ startsWith(github.ref_name, 'v0.') }}
+          prerelease: ${{ env.IS_PRERELEASE == 'true' }}
           body: |
             ## Swarachakra ${{ github.ref_name }}
 
@@ -130,6 +150,7 @@ jobs:
 
             **Obtainium**: point at this repository, set APK filter to
             `swarachakra-<your-language>-` to track only your language.
+            For beta builds, use `swarachakra-<your-language>-.*-beta`.
           files: release-apks/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
