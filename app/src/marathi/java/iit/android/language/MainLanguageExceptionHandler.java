@@ -78,6 +78,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         initializeVowelModifiers();
         //initialize whole Vowel
         initializeWholeVowels();
+        mKeys = main.hashThis();
     }
 
     public void setInputConnection(InputConnection ic) {
@@ -112,8 +113,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 			KeyAttr key = new KeyAttr();
 			key.code = i+1;
 			keyArray.add(key);
-			mKeys = main.hashThis();
-		}
+					}
 	}
 
     //initialize Vowel Modifiers

@@ -31,6 +31,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 	{
 		main = lang;
 		initializeKeyArray();
+		mKeys = main.hashThis();
 	}
 
 	@SuppressLint("UseSparseArrays")
@@ -60,8 +61,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 			KeyAttr key = new KeyAttr();
 			key.code = i+1;
 			keyArray.add(key);
-			mKeys = main.hashThis();
-		}
+					}
 	}
 
 	private void handleRafar(HashMap<Integer, KeyAttr> sKeys) {
