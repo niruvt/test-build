@@ -11,6 +11,7 @@ public class MainLanguage extends Language{
 
     public MainLanguage() {
         name = "Punjabi";
+        symbol = "\u0A2A\u0A02"; //ਪ (pa — first syllable of ਪੰਜਾਬੀ)
         nKeys = 106;
         myKey = new ArrayList<KeyAttr>(nKeys);
         defaultChakra = new String[] {"","\u0a3e", "\u0a3f", "\u0a40", "\u0a41", "\u0a42", "\u0a47", "\u0a48", "\u0a4b", "\u0a4c"};
