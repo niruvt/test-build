@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
+import androidx.core.content.ContextCompat;
 import android.widget.RelativeLayout;
 
 import java.util.HashMap;
