@@ -350,9 +350,9 @@ public class MainLanguage extends Language{
         KeyAttr myKey27 = new KeyAttr();
         myKey27.code = 28;
         myKey27.label = "\"" ;
-        myKey27.showChakra = false ;
-        myKey27.showCustomChakra = false ;
-        myKey27.customChakraLayout = new String[] {} ;
+        myKey27.showChakra = true ;
+        myKey27.showCustomChakra = true ;
+        myKey27.customChakraLayout = new String[] {"","","","\u201D","","","","","\u201C",""} ;
         myKey27.showIcon = false ;
         myKey27.icon = "";
         myKey27.changeLayout = false ;
