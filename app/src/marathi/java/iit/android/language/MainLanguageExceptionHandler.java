@@ -252,8 +252,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
             }
             languageConsonants.add((char) i);
         }
-
-        //    }
+    }
 
     private void handleRafar(HashMap<Integer, KeyAttr> sKeys) {
         for (KeyAttr key : keyArray) {
