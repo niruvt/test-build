@@ -5,6 +5,7 @@ import iit.android.swarachakra.KeyAttr;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import android.util.SparseArray;
 
 import android.annotation.SuppressLint;
 
@@ -678,9 +679,8 @@ public class MainLanguage extends Language {
     }
 
     @Override
-    @SuppressLint("UseSparseArrays")
-    public HashMap<Integer, KeyAttr> hashThis() {
-        HashMap<Integer, KeyAttr> hashed = new HashMap<Integer, KeyAttr>();
+    public SparseArray<KeyAttr> hashThis() {
+        SparseArray<KeyAttr> hashed = new SparseArray<KeyAttr>();
         for (int i = 0; i < nKeys; i++) {
             KeyAttr key = myKey.get(i);
             hashed.put(key.code, key);

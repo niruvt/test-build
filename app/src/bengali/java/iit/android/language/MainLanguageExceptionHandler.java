@@ -8,6 +8,7 @@ import android.view.inputmethod.InputConnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import android.util.SparseArray;
 
 import android.annotation.SuppressLint;
 import android.util.Log;
@@ -24,7 +25,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 
 
 	private ArrayList<KeyAttr> keyArray;
-	private HashMap<Integer, KeyAttr> mKeys;
+	private SparseArray<KeyAttr> mKeys;
 	private Language main;
 
 	private static final String RA = "\u09B0";
@@ -38,10 +39,8 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 		main = lang;
 		initializeKeyArray();
 	}
-
-	@SuppressLint("UseSparseArrays")
-	public HashMap<Integer, KeyAttr> handleException(int keyCode){
-		HashMap<Integer, KeyAttr> sKeys = new HashMap<Integer, KeyAttr>();
+	public SparseArray<KeyAttr> handleException(int keyCode){
+		SparseArray<KeyAttr> sKeys = new SparseArray<KeyAttr>();
 		switch(keyCode){
 			case NUKTACODE:
 				handleNukta(sKeys);
@@ -68,7 +67,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 		}
 	}
 
-	private void handleRafar(HashMap<Integer, KeyAttr> sKeys) {
+	private void handleRafar(SparseArray<KeyAttr> sKeys) {
 		for(KeyAttr key : keyArray){
 			String newLabel = RA + HALANT + mKeys.get(key.code).label;
 			key.label = newLabel;
@@ -77,7 +76,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 		}
 	}
 
-	private void handleTrakar(HashMap<Integer, KeyAttr> sKeys) {
+	private void handleTrakar(SparseArray<KeyAttr> sKeys) {
 		for(KeyAttr key : keyArray){
 			String newLabel = mKeys.get(key.code).label + HALANT + RA;
 			key.label = newLabel;
@@ -86,7 +85,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 		}
 	}
 
-	private void handleNukta(HashMap<Integer, KeyAttr> sKeys) {
+	private void handleNukta(SparseArray<KeyAttr> sKeys) {
 		for(KeyAttr key : keyArray){
 			if(key.code == 13){
 				String newLabel = "\u09DC";

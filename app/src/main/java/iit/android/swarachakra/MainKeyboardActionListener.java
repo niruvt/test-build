@@ -5,6 +5,7 @@ import iit.android.language.MainLanguageExceptionHandler;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import android.util.SparseArray;
 import java.util.List;
 
 import android.content.Context;
@@ -96,8 +97,8 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 	private boolean shiftHandled;
 	private int exceptionCode;
 	private String preText;
-	private HashMap<Integer, KeyAttr> mKeys;
-	private HashMap<Integer, KeyAttr> sKeys;
+	private SparseArray<KeyAttr> mKeys;
+	private SparseArray<KeyAttr> sKeys;
 	private int ENTER;
 	private int BACKSPACE;
 	private int SPACE;
@@ -210,7 +211,7 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 		mExceptionLangHandler = mleh;
 	}
 
-	public void setKeysMap(HashMap<Integer, KeyAttr> mKeys) {
+	public void setKeysMap(SparseArray<KeyAttr> mKeys) {
 		this.mKeys = mKeys;
 	}
 
@@ -260,10 +261,10 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 		shiftHandled = false;
 		KeyAttr key = null;
 		boolean showChakra = false;
-		if (inExceptionMode && sKeys.containsKey(keyCode)) {
+		if (inExceptionMode && sKeys.indexOfKey(keyCode) >= 0) {
 			showChakra = sKeys.get(keyCode).showChakra && !(isChakraVisible);
 			key = sKeys.get(keyCode);
-		} else if (mKeys.containsKey(keyCode)) {
+		} else if (mKeys.indexOfKey(keyCode) >= 0) {
 			showChakra = mKeys.get(keyCode).showChakra && !(isChakraVisible);
 			key = mKeys.get(keyCode);
 		}
@@ -285,7 +286,7 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 	@Override
 	public void onRelease(int keyCode) {
 
-		if (mKeys.containsKey(keyCode)) {
+		if (mKeys.indexOfKey(keyCode) >= 0) {
 			if (isShifted && !(isPersistent)) {
 				changeLayout("default");
 				isShifted = false;
@@ -295,7 +296,7 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 		if (inExceptionMode) {
 			inExceptionMode = false;
 			updateKeyLabels();
-			if (mKeys.containsKey(keyCode)) {
+			if (mKeys.indexOfKey(keyCode) >= 0) {
 				if (mKeys.get(keyCode).isException
 						&& (exceptionCode == keyCode)) {
 					exceptionCode = 0;
@@ -320,7 +321,7 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 				commitText(text);
 			}
 			removeChakra();
-		} else if (mKeys.containsKey(keyCode)) {
+		} else if (mKeys.indexOfKey(keyCode) >= 0) {
 			KeyAttr key = mKeys.get(keyCode);
 			if (key.isException) {
 				handleException(keyCode);
@@ -555,7 +556,7 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 			int code = key.codes[0];
 			if (code <= halantEnd) {
 				String nextLabel = "";
-				if (inExceptionMode && sKeys.containsKey(code)) {
+				if (inExceptionMode && sKeys.indexOfKey(code) >= 0) {
 					nextLabel = sKeys.get(code).label;
 				} else {
 					nextLabel = preText + mKeys.get(code).label;
@@ -568,7 +569,7 @@ public class MainKeyboardActionListener implements OnKeyboardActionListener,
 
 	private String getKeyLabel(int keyCode) {
 		if (inExceptionMode) {
-			if (sKeys.containsKey(keyCode)) {
+			if (sKeys.indexOfKey(keyCode) >= 0) {
 				String label = sKeys.get(keyCode).label;
 				return label;
 			}

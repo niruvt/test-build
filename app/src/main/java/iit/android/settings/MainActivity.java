@@ -318,8 +318,8 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	public void showInputEnableSettings() {
-		startActivityForResult(new Intent(
-				android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS), 0);
+		startActivity(new Intent(
+				android.provider.Settings.ACTION_INPUT_METHOD_SETTINGS));
 	}
 
 	public void showInputDefaultSettings() {

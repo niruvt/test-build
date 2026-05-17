@@ -10,6 +10,7 @@ import iit.android.swarachakra.SoftKeyboard;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import android.util.SparseArray;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,7 @@ import android.view.inputmethod.InputConnection;
 public class MainLanguageExceptionHandler implements ExceptionHandler {
 
     private ArrayList<KeyAttr> keyArray;
-    private HashMap<Integer, KeyAttr> mKeys;
+    private SparseArray<KeyAttr> mKeys;
     public ArrayList<Character> languageConsonants;
     private ArrayList<Character> languageCharacterSet;
     public ArrayList<Character> vowelModifiers;
@@ -83,10 +84,8 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
     public void setInputConnection(InputConnection ic) {
         mInputConnection = ic;
     }
-
-    @SuppressLint("UseSparseArrays")
-    public HashMap<Integer, KeyAttr> handleException(int keyCode) {
-        HashMap<Integer, KeyAttr> sKeys = new HashMap<Integer, KeyAttr>();
+    public SparseArray<KeyAttr> handleException(int keyCode) {
+        SparseArray<KeyAttr> sKeys = new SparseArray<KeyAttr>();
         switch (keyCode) {
             case EYELASHRACODE:
                 handleEyelashRa(sKeys);
@@ -254,7 +253,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         }
     }
 
-    private void handleRafar(HashMap<Integer, KeyAttr> sKeys) {
+    private void handleRafar(SparseArray<KeyAttr> sKeys) {
         for (KeyAttr key : keyArray) {
             String newLabel = RA + HALANT + mKeys.get(key.code).label;
             key.label = newLabel;
@@ -263,7 +262,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         }
     }
 
-	private void handleTrakar(HashMap<Integer, KeyAttr> sKeys) {
+	private void handleTrakar(SparseArray<KeyAttr> sKeys) {
 		for(KeyAttr key : keyArray){
 			String newLabel = mKeys.get(key.code).label + HALANT + RA;
 			key.label = newLabel;
@@ -272,7 +271,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
 		}
 	}
 
-	private void handleEyelashRa(HashMap<Integer, KeyAttr> sKeys) {
+	private void handleEyelashRa(SparseArray<KeyAttr> sKeys) {
 
         int[] temp = {26,33};
 
@@ -517,7 +516,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         }
     }
 
-    private void handleNukta(HashMap<Integer, KeyAttr> sKeys) {
+    private void handleNukta(SparseArray<KeyAttr> sKeys) {
         int[] temp = {1, 2, 3, 8, 13, 14, 20, 22, 26, 27, 28};
         String[] nuktaVal = {"\u0958", "\u0959", "\u095a", "\u095b", "\u095c", "\u095d", "\u0929", "\u095e", "\u095f", "\u0931", "\u0934"};
         //ArrayList<Integer> nuktaKeys = new ArrayList<Integer>();

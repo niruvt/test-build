@@ -3,6 +3,7 @@ package iit.android.swarachakra;
 import iit.android.language.Language;
 
 import java.util.HashMap;
+import android.util.SparseArray;
 
 import android.content.Context;
 import android.inputmethodservice.Keyboard.Key;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 
 public class EnglishKeyboardView extends CustomKeyboardView {
 	
-	private HashMap<Integer, KeyAttr> mKeys;
+	private SparseArray<KeyAttr> mKeys;
 	private EnglishKeyboardActionListener mActionListener;
 	public PopupWindow mPreviewPopup;
 	public TextView mPreviewTextView;
@@ -43,12 +44,12 @@ public class EnglishKeyboardView extends CustomKeyboardView {
 		
 		mPreviewPopup.setContentView(v);
 		mPreviewPopup.setTouchable(false);
-		mPreviewPopup.setBackgroundDrawable(null);
+		mPreviewPopup.setBackground(null);
 		mPreviewPopup.setClippingEnabled(false);
 	}
 
 	@Override
-	public void init(SoftKeyboard sk, Language lang, HashMap<Integer, KeyAttr> keys){
+	public void init(SoftKeyboard sk, Language lang, SparseArray<KeyAttr> keys){
 		mKeys = keys;
 		
 		mActionListener = new EnglishKeyboardActionListener();

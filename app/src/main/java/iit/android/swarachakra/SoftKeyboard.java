@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 import android.widget.RelativeLayout;
 
 import java.util.HashMap;
+import android.util.SparseArray;
 import java.util.List;
 
 import iit.android.language.Language;
@@ -33,9 +34,9 @@ public class SoftKeyboard extends InputMethodService {
 
     private CustomKeyboardView mKeyboardView;
     private Keyboard mKeyboard;
-    private HashMap<Integer, KeyAttr> mKeys;
-    private HashMap<Integer, KeyAttr> mainKeys;
-    private HashMap<Integer, KeyAttr> englishKeys;
+    private SparseArray<KeyAttr> mKeys;
+    private SparseArray<KeyAttr> mainKeys;
+    private SparseArray<KeyAttr> englishKeys;
     private MainLanguage mainLanguage;
     public String mainLanguageSymbol;
     private English english;
@@ -222,7 +223,7 @@ public class SoftKeyboard extends InputMethodService {
     private void setKeys() {
         List<Key> keys = mKeyboard.getKeys();
         for (Key key : keys) {
-            if (mKeys.containsKey(key.codes[0])) {
+            if (mKeys.indexOfKey(key.codes[0]) >= 0) {
 
                 if (key.codes[0] == 400) {
                     //key.gap = 500;

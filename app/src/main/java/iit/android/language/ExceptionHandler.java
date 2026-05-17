@@ -3,8 +3,9 @@ package iit.android.language;
 import iit.android.swarachakra.KeyAttr;
 
 import java.util.HashMap;
+import android.util.SparseArray;
 
 public interface ExceptionHandler {
 
-	public HashMap<Integer, KeyAttr> handleException(int keyCode);
+	public SparseArray<KeyAttr> handleException(int keyCode);
 }
