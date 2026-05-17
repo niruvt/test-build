@@ -188,7 +188,7 @@ public class MainLanguage extends Language{
         myKey27.label = "\"" ;
         myKey27.showChakra = true ;
         myKey27.showCustomChakra = true ;
-        myKey27.customChakraLayout = new String[] {"","","","\u201D","","","","","\u201C",""} ;
+        myKey27.customChakraLayout = new String[] {"\u201C","","","","","\u201D","","","",""} ;
         myKey.add(myKey27);
 
         KeyAttr myKey28 = new KeyAttr();

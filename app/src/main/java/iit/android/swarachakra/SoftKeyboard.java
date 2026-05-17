@@ -63,7 +63,7 @@ public class SoftKeyboard extends InputMethodService {
         english = new English();
         englishKeys = english.hashThis();
 
-        if (languageName == "") {
+        if (languageName.isEmpty()) {
             setLanguage("main");
         } else {
             setLanguage(languageName);
@@ -80,7 +80,7 @@ public class SoftKeyboard extends InputMethodService {
         mContext = this;
         layoutName = "";
 
-        if (languageName == "") {
+        if (languageName.isEmpty()) {
             setLanguage("main");
         } else {
             setLanguage(languageName);
@@ -95,7 +95,7 @@ public class SoftKeyboard extends InputMethodService {
             /*layout = (RelativeLayout) getLayoutInflater()
                     .inflate(keyboardViewResourceId, null);*/
 
-            if (languageName == "main") {
+            if (languageName.equals("main")) {
 
                 mKeyboardView = (MainKeyboardView) layout.findViewById(R.id.keyboard);
 
@@ -154,7 +154,7 @@ public class SoftKeyboard extends InputMethodService {
         //String themeName =  SettingsActivity.getThemeName(prefs.getInt(theme,SettingsActivity.THEME1));
         String file = "";
         //layout_orient_screensize_lang_layer_theme.xml
-        if (languageName == "english") {
+        if (languageName.equals("english")) {
             file = "kview_" + displayMode + languageName;
         } else {
             file = "kview_" + displayMode + sizeName + "_" + languageName + "_" + layoutName;
@@ -163,6 +163,18 @@ public class SoftKeyboard extends InputMethodService {
         //String file = "kview_" + displayMode + languageName;
         int output = getResources().getIdentifier(file, "layout",
                 getPackageName());
+
+        // if the requested layout (e.g. hex) is not available for this language,
+        // fall back to the rect layout which exists for all languages
+        if (output == 0 && layoutName.equals("hex_")) {
+            String rectFile;
+            if (languageName.equals("english")) {
+                rectFile = "kview_" + displayMode + languageName;
+            } else {
+                rectFile = "kview_" + displayMode + sizeName + "_" + languageName + "_" + "rect_";
+            }
+            output = getResources().getIdentifier(rectFile, "layout", getPackageName());
+        }
 
         return output;
     }
@@ -298,7 +310,7 @@ public class SoftKeyboard extends InputMethodService {
      * Changes the language of the keyboard from english to main language and vice-versa
      */
     public void changeLanguage() {
-        if (languageName == "main") {
+        if (languageName.equals("main")) {
             language = english;
             languageName = "english";
             setLanguage("english");
@@ -409,7 +421,7 @@ public class SoftKeyboard extends InputMethodService {
         //layout_orient_screensize_lang_layer_theme.xml
         String name = "";
 
-        if (languageName == "english") {
+        if (languageName.equals("english")) {
 
             name = displayMode + languageName + "_" + layoutFile + "_" + themeName;
         } else {
@@ -444,7 +456,7 @@ public class SoftKeyboard extends InputMethodService {
 
         //layout_orient_screensize_lang_layer_theme.xml
         String name = "";
-        if (languageName == "english") {
+        if (languageName.equals("english")) {
 
             //name = displayMode+languageName+"_"+layoutFile+"_"+themeName;
         } else {

@@ -342,7 +342,7 @@ public class MainLanguage extends Language{
 		myKey45.label = "\"";
 		myKey45.showChakra = true ;
 		myKey45.showCustomChakra = true ;
-		myKey45.customChakraLayout = new String[] {"","","","\u201D","","","","","\u201C",""} ;
+		myKey45.customChakraLayout = new String[] {"\u201C","","","","","\u201D","","","",""} ;
 		myKey.add(myKey45);
 
 		KeyAttr myKey46 = new KeyAttr();
@@ -350,7 +350,7 @@ public class MainLanguage extends Language{
 		myKey46.label = "\u0027" ;
 		myKey46.showChakra = true ;
 		myKey46.showCustomChakra = true ;
-		myKey46.customChakraLayout = new String[] {"","","","\u2019","","","","","\u2018",""} ;
+		myKey46.customChakraLayout = new String[] {"\u2018","","","","","\u2019","","","",""} ;
 		myKey.add(myKey46);
 
 		KeyAttr myKey47 = new KeyAttr();

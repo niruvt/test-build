@@ -155,5 +155,6 @@ jobs:
             `swarachakra-<your-language>-` to track only your language.
             For beta builds, use `swarachakra-<your-language>-.*-beta`.
           files: release-apks/*.apk
+          max_retries: 5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
