@@ -135,5 +135,6 @@ jobs:
             **Obtainium**: point at this repository, set APK filter to
             `swarachakra-<your-language>-` to track only your language.
           files: release-apks/*.apk
+          max_retries: 5
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
