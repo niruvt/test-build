@@ -44,7 +44,7 @@ public class EnglishKeyboardView extends CustomKeyboardView {
 		
 		mPreviewPopup.setContentView(v);
 		mPreviewPopup.setTouchable(false);
-		mPreviewPopup.setBackgroundDrawable(null);
+		mPreviewPopup.setBackground(null);
 		mPreviewPopup.setClippingEnabled(false);
 	}
 
