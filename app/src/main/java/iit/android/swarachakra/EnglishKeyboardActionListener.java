@@ -3,6 +3,7 @@ package iit.android.swarachakra;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import android.util.SparseArray;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -35,7 +36,7 @@ public class EnglishKeyboardActionListener implements OnKeyboardActionListener,
 	private int SHIFT;
 	private static EnglishKeyboardView mKeyboardView;
 	private SoftKeyboard mSoftKeyboard;
-	private HashMap<Integer, KeyAttr> mKeys;
+	private SparseArray<KeyAttr> mKeys;
 	private InputConnection mInputConnection;
 	private List<Integer> mSpecialKeys;
 	private static HashMap<Integer, Key> mKeyboardKeys;
@@ -106,8 +107,6 @@ public class EnglishKeyboardActionListener implements OnKeyboardActionListener,
 		inQuickSymbolMode = false;
 		isDoubleTapReady = false;
 	}
-
-	@SuppressLint("UseSparseArrays")
 	private static void buildKeyboardKeys() {
 		mKeyboardKeys = new HashMap<Integer, Key>();
 		List<Key> keys = mKeyboardView.getKeyboard().getKeys();
@@ -120,7 +119,7 @@ public class EnglishKeyboardActionListener implements OnKeyboardActionListener,
 		this.mSoftKeyboard = sk;
 	}
 
-	public void setKeysMap(HashMap<Integer, KeyAttr> mKeys) {
+	public void setKeysMap(SparseArray<KeyAttr> mKeys) {
 		this.mKeys = mKeys;
 	}
 
@@ -182,7 +181,7 @@ public class EnglishKeyboardActionListener implements OnKeyboardActionListener,
 	@Override
 	public void onRelease(int keyCode) {
 		String label = getLabel(keyCode);
-		if (mKeys.containsKey(keyCode)) {
+		if (mKeys.indexOfKey(keyCode) >= 0) {
 			if (isShifted && !(isPersistent)) {
 				isShifted = false;
 				changeLayout();
@@ -285,7 +284,7 @@ public class EnglishKeyboardActionListener implements OnKeyboardActionListener,
 	}
 
 	private String getLabel(int keyCode) {
-		if (mKeys.containsKey(keyCode)) {
+		if (mKeys.indexOfKey(keyCode) >= 0) {
 			if (inSymbolMode) {
 				if (keyCode == 53) {
 					return ".";
@@ -309,7 +308,7 @@ public class EnglishKeyboardActionListener implements OnKeyboardActionListener,
 	public void changeLayout() {
 		List<Key> keys = mKeyboardView.getKeyboard().getKeys();
 		for (Key key : keys) {
-			if (mKeys.containsKey(key.codes[0])) {
+			if (mKeys.indexOfKey(key.codes[0]) >= 0) {
 				key.label = getLabel(key.codes[0]);
 			} else {
 				int code = key.codes[0];

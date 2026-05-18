@@ -3,6 +3,7 @@ package iit.android.swarachakra;
 import iit.android.language.Language;
 
 import java.util.HashMap;
+import android.util.SparseArray;
 import java.util.List;
 
 import android.content.Context;
@@ -33,7 +34,7 @@ public class CustomKeyboardView extends KeyboardView {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public void init(SoftKeyboard mSoftKeyboard, Language lang, HashMap<Integer, KeyAttr> keys){
+	public void init(SoftKeyboard mSoftKeyboard, Language lang, SparseArray<KeyAttr> keys){
 		
 	}
 	

@@ -12,6 +12,7 @@ import android.view.inputmethod.InputConnection;
 import android.widget.PopupWindow;
 
 import java.util.HashMap;
+import android.util.SparseArray;
 import java.util.List;
 
 import iit.android.language.ExceptionHandler;
@@ -81,7 +82,7 @@ public class MainKeyboardView extends CustomKeyboardView {
 
 	@Override
 	public void init(SoftKeyboard sk, Language lang,
-			HashMap<Integer, KeyAttr> keys) {
+			SparseArray<KeyAttr> keys) {
 		mActionListener = new MainKeyboardActionListener();
 		this.setOnKeyboardActionListener(mActionListener);
 		mActionListener.initialize(this);

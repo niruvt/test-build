@@ -4,6 +4,7 @@ import iit.android.swarachakra.KeyAttr;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import android.util.SparseArray;
 
 public class Language {
 	public String name;
@@ -14,7 +15,7 @@ public class Language {
 	public boolean halantExists;
 	public int halantEnd;
 	
-	public HashMap<Integer, KeyAttr> hashThis(){
+	public SparseArray<KeyAttr> hashThis(){
 		
 		return null;
 	}
