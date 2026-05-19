@@ -298,7 +298,7 @@ public class SoftKeyboard extends InputMethodService {
      */
     public void setLanguage(String name) {
         languageName = name;
-        if (name == "english") {
+        if (name.equals("english")) {
             language = english;
             mKeys = englishKeys;
         } else {
