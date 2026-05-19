@@ -61,7 +61,7 @@ public class MainKeyboardView extends CustomKeyboardView {
 		mChakraPopup.setContentView(v);
 		mChakraPopup.setTouchable(false);
 		mChakraPopup.setClippingEnabled(false);
-		mChakraPopup.setBackground(null);
+		mChakraPopup.setBackgroundDrawable(null);
 		mPopupParent = this;
 
 		//Moved from MainKeyboardActionListener
