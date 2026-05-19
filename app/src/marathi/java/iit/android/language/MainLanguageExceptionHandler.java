@@ -245,7 +245,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
         // Add all letters between start and end into the language consonant array - 'languageConsonants'.
         for (int i = CONSONANT_START; i <= CONSONANT_END; i++) {
             //omit values in between the range.
-            if (omitConsonantInRange.indexOfKey((char) >= 0 i)) {
+            if (omitConsonantInRange.containsKey((char) i)) {
                 i = omitConsonantInRange.get((char) i);
                 continue;
             }
@@ -354,7 +354,7 @@ public class MainLanguageExceptionHandler implements ExceptionHandler {
                                 // logic is to get the previous 3 characters and strip of zwj and nzwj.
                                 // then get value and check if it is equal. if yes INCLUDE the previous two chars to delete.
                                 // then compare the prev two + current to find if
-                                if (conjuncts.indexOfKey(test.charAt(i) >= 0)) {
+                                if (conjuncts.containsKey(test.charAt(i))) {
                                     //deleting ksha with rafar code
                                     if(String.valueOf(test.charAt(i)).equals("ष")){
                                         if(test.length()>4 && i>3) {
