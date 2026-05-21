@@ -22,8 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodInfo;
@@ -133,10 +131,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         super.onCreate(savedInstanceState);
+        // requestWindowFeature must be called after super.onCreate for AppCompatActivity
+        if (getSupportActionBar() != null) getSupportActionBar().hide();
 
         if (getIntent().getExtras() != null) {
             inEnglish = getIntent().getExtras().getBoolean("inEnglish", false);
