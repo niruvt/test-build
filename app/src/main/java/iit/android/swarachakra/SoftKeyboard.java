@@ -165,16 +165,26 @@ public class SoftKeyboard extends InputMethodService {
         int output = getResources().getIdentifier(file, "layout",
                 getPackageName());
 
-        // if the requested layout (e.g. hex) is not available for this language,
-        // fall back to the rect layout which exists for all languages
-        if (output == 0 && layoutName.equals("hex_")) {
-            String rectFile;
-            if (languageName.equals("english")) {
-                rectFile = "kview_" + displayMode + languageName;
-            } else {
-                rectFile = "kview_" + displayMode + sizeName + "_" + languageName + "_" + "rect_";
-            }
+        // if requested layout not found, try progressively simpler fallbacks
+        if (output == 0 && !languageName.equals("english")) {
+            // try rect layout with current size
+            String rectFile = "kview_" + displayMode + sizeName + "_" + languageName + "_rect_";
             output = getResources().getIdentifier(rectFile, "layout", getPackageName());
+        }
+        if (output == 0 && !languageName.equals("english")) {
+            // try rect with phone size
+            String rectFile = "kview_" + displayMode + "phone_" + languageName + "_rect_";
+            output = getResources().getIdentifier(rectFile, "layout", getPackageName());
+        }
+        if (output == 0 && !languageName.equals("english")) {
+            // try rect with tablet size
+            String rectFile = "kview_" + displayMode + "tablet_" + languageName + "_rect_";
+            output = getResources().getIdentifier(rectFile, "layout", getPackageName());
+        }
+        if (output == 0 && !languageName.equals("english")) {
+            // last resort: try portrait phone rect (most common)
+            output = getResources().getIdentifier(
+                "kview_port_phone_main_rect_", "layout", getPackageName());
         }
 
         return output;
@@ -187,6 +197,13 @@ public class SoftKeyboard extends InputMethodService {
         mInputConnection = getCurrentInputConnection();
 
         if (mInputConnection == null)
+            return;
+
+        if (mKeyboardView == null) {
+            // keyboard view not initialized yet - re-trigger initialization
+            onCreateInputView();
+            if (mKeyboardView == null) return;
+        }
 
         mKeyboardView.resetInputConnection(mInputConnection);
         mKeyboardView.setAlpha(1);
@@ -221,6 +238,7 @@ public class SoftKeyboard extends InputMethodService {
      * sets the labels to the keys on the keyboard
      */
     private void setKeys() {
+        if (mKeyboard == null) return;
         List<Key> keys = mKeyboard.getKeys();
         for (Key key : keys) {
             if (mKeys.indexOfKey(key.codes[0]) >= 0) {
@@ -432,6 +450,20 @@ public class SoftKeyboard extends InputMethodService {
 
         resourceId = getResources().getIdentifier(name, "layout", getPackageName());
 
+        // if hex key layout not found, fall back to rect layout
+        if (resourceId == 0 && !languageName.equals("english") && layoutName.equals("hex_")) {
+            String rectName = "rect_" + displayMode + sizeName + "_" + languageName
+                    + "_" + layoutFile + "_" + themeName;
+            resourceId = getResources().getIdentifier(rectName, "layout", getPackageName());
+        }
+        // try phone size if tablet size failed
+        if (resourceId == 0 && !languageName.equals("english")) {
+            String altSizeName = sizeName.equals("tablet") ? "phone" : "tablet";
+            String rectName = "rect_" + displayMode + altSizeName + "_" + languageName
+                    + "_" + layoutFile + "_" + themeName;
+            resourceId = getResources().getIdentifier(rectName, "layout", getPackageName());
+        }
+
         return resourceId;
     }
 
@@ -498,8 +530,10 @@ public class SoftKeyboard extends InputMethodService {
      * Changes the appearance of the enter key based on IME options
      */
     void setImeOptions() {
+        if (mKeyboard == null || mKeyboardView == null) return;
         Resources res = getResources();
         EditorInfo ei = getCurrentInputEditorInfo();
+        if (ei == null) return;
         int textOptions = ei.inputType;
         int options = ei.imeOptions;
         for (Key k : mKeyboard.getKeys()) {
